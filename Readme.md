@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгения Хохлова](https://up.htmlacademy.ru/javascript/16/user/668737).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Карпов](https://up.htmlacademy.ru/javascript/16/user/70583).
 
 ---
 

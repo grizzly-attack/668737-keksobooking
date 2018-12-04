@@ -97,7 +97,12 @@ function generateOffers(count){
     }
 
     function getOfferFeatures () {
-      return [];
+      var random = getRandomFromRange(0, offersFeatures.length);
+      var randomArr =[];
+      for (var i = 0; i <= random; i++) {
+        randomArr[i]= offersFeature[i];
+      }
+      return randomArr;
     }
 
 	}
@@ -106,3 +111,4 @@ function generateOffers(count){
 		return (min + Math.floor(Math.random()*(max-min) + 1));
   }
 }
+

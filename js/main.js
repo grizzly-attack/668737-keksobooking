@@ -3,6 +3,20 @@
 var OFFERS_COUNT = 8;
 var offers = generateOffers(OFFERS_COUNT);
 
+var priceMin = 1000;
+var priceMax = 1000000;
+var roomMin = 1
+var roomMax = 5;
+var guestsMin = 1;
+var guestsMax = 10;
+var coordXMin = 0;
+var coordXMax = 1200;
+var coordYMin = 130;
+var coordYMax = 630;
+
+var coordX = getRandomFromRange(coordXMin, coordXMax);
+var coordY = getRandomFromRange(coordYMin, coordYMax);
+
 var offersTitles = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var offersType = ['palace', 'flat', 'house', 'bungalo'];
 var offersCheckin = ['12:00', '13:00', '14:00'];
@@ -26,89 +40,42 @@ function generateOffers(count){
 				'avatar': 'img/avatars/user' + getTwoDigits(index) + '.png'
 			},
 			'offer': {
-        'title': getOfferTitle(),
-        'address': getAdressX() + getAdressY(),
-        'price': getOfferPrice(),
-        'type': getOfferType(),
-        'rooms': getOfferRooms(),
-        'guests': getOfferGuests(),
-        'checkin': getOfferCheckin(),
-        'checkout': getOfferCheckout(),
+        'title': offersTitles.splice(getRandomFromRange(0, offersTitles.length - 1), 1),
+        'address': coordX + ' ,' + coordY,
+        'price': getRandomFromRange(priceMin, priceMax),
+        'type': offersType[getRandomFromRange(0, offersType.length)],
+        'rooms': getRandomFromRange(roomMin, roomMax),
+        'guests': getRandomFromRange(guestsMin, guestsMax),
+        'checkin': offersCheckin[getRandomFromRange(0, offersCheckin.length)],
+        'checkout': offersCheckout[getRandomFromRange(0, offersCheckout.length)],
         'features': getOfferFeatures(),
         'description': ' ',
-        'photos': getOfferPhotos()
+        'photos': offersPhotos.sort()
       },
       'location': {
-        'x': getLocationX(),
-        'y': getLocationY()
+        'x': coordX,
+        'y': coordY
       }
-		};
+    };
+
 
 		function getTwoDigits(number) {
 			return (number < 10) ? '0' + number : number;
-		}
-		function getOfferTitle() {
-			return offersTitles.splice(getRandomFromRange(0, offersTitles.length - 1), 1);
-    }
-
-    function getOfferPrice() {
-      return getRandomFromRange(1000, 1000000);
-    }
-
-    function getOfferType() {
-      return offersType[getRandomFromRange(0, offersType.length)];
-    }
-
-    function getOfferRooms() {
-      return getRandomFromRange(1, 5);
-    }
-
-    function getOfferGuests() {
-      return getRandomFromRange(1, 10);
-    }
-
-    function getOfferCheckin() {
-      return offersCheckin[getRandomFromRange(0, offersCheckin.length)];
-    }
-
-    function getOfferCheckout() {
-      return offersCheckout[getRandomFromRange(0, offersCheckout.length)];
-    }
-
-    function getOfferPhotos() {
-      return offersPhotos.sort();
-    }
-
-    function getAdressX (sum) {
-      sum =  getRandomFromRange(0, 1200) + ', '
-      return sum;
-    }
-
-    function getAdressY () {
-      return getRandomFromRange(0, 750);
-    }
-
-    function getLocationX () {
-      return getRandomFromRange(0, 1200);
-    }
-
-    function getLocationY () {
-      return getRandomFromRange(130, 630);
     }
 
     function getOfferFeatures () {
-      var random = getRandomFromRange(0, offersFeatures.length);
-      var randomArr =[];
-      for (var i = 0; i <= random; i++) {
-        randomArr[i]= offersFeature[i];
-      }
-      return randomArr;
-    }
+      var result = [];
+      var featuresClone = offersFeatures.slice();
+      var featuresCount = getRandomFromRange(0, featuresClone.length - 1);
 
+      for (var i = 0; i < featuresCount; i++){
+      result.push(featuresClone.splice(getRandomFromRange(0, featuresClone.length - 1), 1)[0]);
+      }
+      return result;
+    }
 	}
 
 	function getRandomFromRange(min, max){
 		return (min + Math.floor(Math.random()*(max-min) + 1));
   }
 }
-

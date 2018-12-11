@@ -1,11 +1,11 @@
 'use strict';
 
 var OFFERS_COUNT = 8;
-var offers = generateOffers(OFFERS_COUNT);
+var newOffers = generateOffers(OFFERS_COUNT);
 
 var priceMin = 1000;
 var priceMax = 1000000;
-var roomMin = 1
+var roomMin = 1;
 var roomMax = 5;
 var guestsMin = 1;
 var guestsMax = 10;
@@ -36,7 +36,7 @@ function generateOffers(count){
   var result = [];
 
 	for (var i = 1; i <= count; i++){
-		result.push(getOffer[i]);
+		result.push(getOffer(i));
   }
 
 	return result;
@@ -84,26 +84,29 @@ function generateOffers(count){
 }
 
 
-var pins = document.querySelector('#pin').content.querySelector('button');
+var pinTpl = document.querySelector('#pin').content.querySelector('button');
 var container = document.querySelector('.map__pins');
-//var pinImg = document.querySelector('#pin').content.querySelector('img');
+var pinImg = document.querySelector('#pin').content.querySelector('img');
 
 
-var createNewElement = function() {
+function createPins (offers) {
 
   for (var i = 0; i < offers.length; i++) {
-    var pin = offers[i];
-    pin = pins.cloneNode(true);
-    container.appendChild(pin);
+   generateOnePin(offers[i]);
   }
 
-  var coordPinX = this.x + pinWidth / 2;
-  var coordPinY = this.y + pinHeight;
-  var coordPin = 'left: ' + coordPinX + 'px; top: ' + coordPinY + 'px';
-
-  pin.style = coordPin;
-
-  return pin;
+  function generateOnePin(offer) {
+    var pin = pinTpl.cloneNode(true);
+    var pinImg = pin.querySelector('img');
+    pinImg.src = offer.author.avatar;
+    pinImg.alt = offer.offer.title;
+    pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
+    container.appendChild(pin);
+  }
 }
 
-createNewElement()
+createPins (newOffers);
+
+
+
+

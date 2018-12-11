@@ -85,20 +85,25 @@ function generateOffers(count){
 
 
 var pins = document.querySelector('#pin').content.querySelector('button');
-var pinImg = document.querySelector('#pin').content.querySelector('img');
 var container = document.querySelector('.map__pins');
+//var pinImg = document.querySelector('#pin').content.querySelector('img');
 
-var coordPinX = coordX + pinWidth / 2;
-var coordPinY = coordY + pinHeight;
-var coordPin = 'left: ' + coordPinX + 'px; top: ' + coordPinY + 'px';
-
-pins.style = coordPin;
 
 var createNewElement = function() {
 
   for (var i = 0; i < offers.length; i++) {
-    var pin = pins.cloneNode(true);
+    var pin = offers[i];
+    pin = pins.cloneNode(true);
     container.appendChild(pin);
   }
+
+  var coordPinX = this.x + pinWidth / 2;
+  var coordPinY = this.y + pinHeight;
+  var coordPin = 'left: ' + coordPinX + 'px; top: ' + coordPinY + 'px';
+
+  pin.style = coordPin;
+
+  return pin;
 }
+
 createNewElement()

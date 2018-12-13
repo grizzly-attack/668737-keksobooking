@@ -21,12 +21,11 @@ var offersCheckout = ['12:00', '13:00', '14:00'];
 var offersFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var offersPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-
-//var pinWidth = 62;
-//var pinHeight = 84;
+// var pinWidth = 62;
+// var pinHeight = 84;
 
 function getRandomFromRange(min, max) {
-  return (min + Math.floor(Math.random() * (max-min) + 1));
+  return (min + Math.floor(Math.random() * (max - min) + 1));
 }
 
 function generateOffers(count) {
@@ -75,7 +74,7 @@ function generateOffers(count) {
       var featuresCount = getRandomFromRange(0, featuresClone.length - 1);
 
       for (var j = 0; j < featuresCount; j++) {
-      resultArr.push(featuresClone.splice(getRandomFromRange(0, featuresClone.length - 1), 1)[0]);
+        resultArr.push(featuresClone.splice(getRandomFromRange(0, featuresClone.length - 1), 1)[0]);
       }
       return resultArr;
     }

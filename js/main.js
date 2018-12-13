@@ -1,7 +1,7 @@
 'use strict';
 
 var OFFERS_COUNT = 8;
-var newOffers = generateOffers(OFFERS_COUNT);
+var newOffers = [];
 
 var priceMin = 1000;
 var priceMax = 1000000;
@@ -13,9 +13,6 @@ var coordXMin = 0;
 var coordXMax = 1200;
 var coordYMin = 130;
 var coordYMax = 630;
-
-var coordX = getRandomFromRange(coordXMin, coordXMax);
-var coordY = getRandomFromRange(coordYMin, coordYMax);
 
 var offersTitles = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var offersType = ['palace', 'flat', 'house', 'bungalo'];
@@ -41,7 +38,10 @@ function generateOffers(count){
 
 	return result;
 
-	function getOffer(index) {
+  function getOffer(index)
+  {
+    var coordX = getRandomFromRange(coordXMin, coordXMax);
+    var coordY = getRandomFromRange(coordYMin, coordYMax);
 
 		return {
 			'author': {
@@ -83,13 +83,12 @@ function generateOffers(count){
 	}
 }
 
-
-var pinTpl = document.querySelector('#pin').content.querySelector('button');
+var pinTpl = document.querySelector('#pin').content.querySelector('.map__pin');
 var container = document.querySelector('.map__pins');
-var pinImg = document.querySelector('#pin').content.querySelector('img');
 
+var fragment = document.createDocumentFragment();
 
-function createPins (offers) {
+function createPins(offers) {
 
   for (var i = 0; i < offers.length; i++) {
    generateOnePin(offers[i]);
@@ -101,12 +100,52 @@ function createPins (offers) {
     pinImg.src = offer.author.avatar;
     pinImg.alt = offer.offer.title;
     pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
-    container.appendChild(pin);
+    fragment.appendChild(pin);
+  }
+
+  container.appendChild(fragment);
+}
+
+var cardTpl = document.querySelector('#card').content.querySelector('.popup');
+var map = document.querySelector('.map');
+var filtersContainer = document.querySelector('.map__filters-container');
+
+function generateCard(offers) {
+
+    generateOneCard(offers[0]);
+
+function generateOneCard(offer) {
+  var card = cardTpl.cloneNode(true);
+  cardTpl.querySelector('.popup__title').textContent = offer.offer.title;
+  cardTpl.querySelector('.popup__text--address').textContent = offer.offer.address;
+  cardTpl.querySelector('.popup__text--price').textContent = offer.offer.price + '₽/ночь';
+  cardTpl.querySelector('.popup__type').textContent = getType();
+  cardTpl.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
+  cardTpl.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
+  cardTpl.querySelector('.popup__features').textContent = offer.offer.features;
+  cardTpl.querySelector('.popup__description').textContent = offer.offer.description;
+  cardTpl.querySelector('.popup__photos').querySelector('img').src = offer.offer.photos;
+  cardTpl.querySelector('.popup__avatar').src = offer.author.avatar;
+
+  function getType() {
+  var type = offer.offer.type;
+    if (type === 'palace') {
+      type = 'Дворец';
+    } else if (type === 'flat') {
+      type = 'Квартира';
+    } else if (type === 'house') {
+      type = 'Дом';
+    } else if (type === 'bungalo') {
+      type = 'Бунгало';
+    };
+
+  return type
+  }
+
+  map.insertBefore(card, filtersContainer);
   }
 }
 
+newOffers = generateOffers(OFFERS_COUNT);
 createPins (newOffers);
-
-
-
-
+generateCard (newOffers)

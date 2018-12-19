@@ -84,9 +84,8 @@ function generateOffers(count) {
 var pinTpl = document.querySelector('#pin').content.querySelector('.map__pin');
 var container = document.querySelector('.map__pins');
 
-var fragment = document.createDocumentFragment();
-
 function createPins(offers) {
+  var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < offers.length; i++) {
     generateOnePin(offers[i]);
@@ -147,3 +146,78 @@ function generateCard(offers) {
 newOffers = generateOffers(OFFERS_COUNT);
 createPins(newOffers);
 generateCard(newOffers);
+
+var PIN_WIDTH = 62;
+var PIN_HEIGHT = 62;
+var PIN_TAIL = 22;
+var MAIN_PIN_LEFT = 570;
+var MAIN_PIN_TOP = 375;
+
+var formFieldset = document.querySelector('.ad-form').querySelectorAll('fieldset');
+var filterFieldset = document.querySelector('.map__filters').querySelectorAll('select');
+var pinMain = document.querySelector('.map__pin--main');
+var map = document.querySelector('.map');
+var adForm = document.querySelector('.ad-form');
+
+var address = document.querySelector('#address');
+var mainPinCoord = ((PIN_WIDTH / 2) + MAIN_PIN_LEFT) + ', ' + ((PIN_HEIGHT / 2) + MAIN_PIN_TOP);
+
+var card = document.querySelector('.popup');
+var pin = document.querySelectorAll('.map__pin');
+var closePopup = card.querySelector('.popup__close');
+
+address.setAttribute('placeholder', mainPinCoord);
+
+card.style.display = 'none';
+
+for (var i = 0; i < formFieldset.length; i++) {
+  formFieldset[i].disabled = true;
+  }
+
+for (var i = 0; i < filterFieldset.length; i++) {
+  filterFieldset[i].disabled = true;
+  }
+
+for (var i = 0; i < pin.length; i++) {
+  pin[i].style.display = 'none';
+  pin[0].style.display = 'block';
+}
+
+function onPinMainMouseup() {
+
+  for (var i = 0; i < formFieldset.length; i++) {
+    formFieldset[i].disabled = false;
+    }
+
+  for (var i = 0; i < filterFieldset.length; i++) {
+    filterFieldset[i].disabled = false;
+    }
+
+  for (var i = 0; i < pin.length; i++) {
+    pin[i].style.display = 'block';
+    }
+
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+
+  address.placeholder = ((PIN_WIDTH / 2) + MAIN_PIN_LEFT) + ', ' + (PIN_HEIGHT + MAIN_PIN_TOP + PIN_TAIL);
+  }
+
+function onPinClick() {
+  card.style.display = 'block';
+}
+
+pinMain.addEventListener('mouseup', onPinMainMouseup);
+
+pin[1].addEventListener('click', onPinClick);
+pin[2].addEventListener('click', onPinClick);
+pin[3].addEventListener('click', onPinClick);
+pin[4].addEventListener('click', onPinClick);
+pin[5].addEventListener('click', onPinClick);
+pin[6].addEventListener('click', onPinClick);
+pin[7].addEventListener('click', onPinClick);
+pin[8].addEventListener('click', onPinClick);
+
+closePopup.addEventListener('click', function() {
+  card.style.display = 'none';
+});

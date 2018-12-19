@@ -156,7 +156,6 @@ var MAIN_PIN_TOP = 375;
 var formFieldset = document.querySelector('.ad-form').querySelectorAll('fieldset');
 var filterFieldset = document.querySelector('.map__filters').querySelectorAll('select');
 var pinMain = document.querySelector('.map__pin--main');
-var map = document.querySelector('.map');
 var adForm = document.querySelector('.ad-form');
 
 var address = document.querySelector('#address');
@@ -172,30 +171,30 @@ card.style.display = 'none';
 
 for (var i = 0; i < formFieldset.length; i++) {
   formFieldset[i].disabled = true;
-  }
+}
 
-for (var i = 0; i < filterFieldset.length; i++) {
+for (i = 0; i < filterFieldset.length; i++) {
   filterFieldset[i].disabled = true;
-  }
+}
 
-for (var i = 0; i < pin.length; i++) {
+for (i = 0; i < pin.length; i++) {
   pin[i].style.display = 'none';
   pin[0].style.display = 'block';
 }
 
 function onPinMainMouseup() {
 
-  for (var i = 0; i < formFieldset.length; i++) {
+  for (i = 0; i < formFieldset.length; i++) {
     formFieldset[i].disabled = false;
-    }
+  }
 
-  for (var i = 0; i < filterFieldset.length; i++) {
+  for (i = 0; i < filterFieldset.length; i++) {
     filterFieldset[i].disabled = false;
-    }
+  }
 
-  for (var i = 0; i < pin.length; i++) {
+  for (i = 0; i < pin.length; i++) {
     pin[i].style.display = 'block';
-    }
+  }
 
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');

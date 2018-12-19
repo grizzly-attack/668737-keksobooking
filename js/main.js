@@ -200,7 +200,7 @@ function onPinMainMouseup() {
   adForm.classList.remove('ad-form--disabled');
 
   address.placeholder = ((PIN_WIDTH / 2) + MAIN_PIN_LEFT) + ', ' + (PIN_HEIGHT + MAIN_PIN_TOP + PIN_TAIL);
-  }
+}
 
 function onPinClick() {
   card.style.display = 'block';
@@ -217,6 +217,6 @@ pin[6].addEventListener('click', onPinClick);
 pin[7].addEventListener('click', onPinClick);
 pin[8].addEventListener('click', onPinClick);
 
-closePopup.addEventListener('click', function() {
+closePopup.addEventListener('click', function () {
   card.style.display = 'none';
 });

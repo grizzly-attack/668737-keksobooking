@@ -153,7 +153,7 @@ function generateCard(offers) {
 
     var closePopup = card.querySelector('.popup__close');
     closePopup.addEventListener('click', function () {
-		  card.style.display = 'none';
+      card.style.display = 'none';
     });
 
     map.insertBefore(card, filtersContainer);

@@ -95,9 +95,9 @@ function createPins(offers) {
     pinImg.alt = offer.offer.title;
     pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
 
-	pin.addEventListener('click', function () {
-	  generateCard(newOffers)
-	});
+    pin.addEventListener('click', function () {
+      generateCard(newOffers);
+    });
 
     fragment.appendChild(pin);
   }
@@ -151,10 +151,10 @@ function generateCard(offers) {
       return photo;
     }
 
-	var closePopup = card.querySelector('.popup__close');
-	closePopup.addEventListener('click', function () {
-		card.style.display = 'none';
-	   });
+    var closePopup = card.querySelector('.popup__close');
+    closePopup.addEventListener('click', function () {
+		  card.style.display = 'none';
+    });
 
     map.insertBefore(card, filtersContainer);
   }
@@ -178,7 +178,7 @@ var address = document.querySelector('#address');
 function getPinCoordinates(coordX, coordY) {
   var mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + ((PIN_HEIGHT / 2) + coordY);
   return mainPinCoord;
-};
+}
 
 address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
 
@@ -205,14 +205,14 @@ function onPinMainMouseup() {
   adForm.classList.remove('ad-form--disabled');
 
 
-  function getPinCoordinates(coordX, coordY) {
+  function getActivePinCoordinates(coordX, coordY) {
     var mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + (PIN_HEIGHT + coordY + PIN_TAIL);
     return mainPinCoord;
-  };
+  }
 
-  address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
+  address.value = getActivePinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
 
   pinMain.removeEventListener('mouseup', onPinMainMouseup);
-};
+}
 
 pinMain.addEventListener('mouseup', onPinMainMouseup);

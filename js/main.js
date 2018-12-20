@@ -21,9 +21,6 @@ var offersCheckout = ['12:00', '13:00', '14:00'];
 var offersFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var offersPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-// var pinWidth = 62;
-// var pinHeight = 84;
-
 function getRandomFromRange(min, max) {
   return (min + Math.floor(Math.random() * (max - min) + 1));
 }
@@ -97,6 +94,11 @@ function createPins(offers) {
     pinImg.src = offer.author.avatar;
     pinImg.alt = offer.offer.title;
     pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
+
+	pin.addEventListener('click', function () {
+	  generateCard(newOffers)
+	});
+
     fragment.appendChild(pin);
   }
 
@@ -121,8 +123,8 @@ function generateCard(offers) {
     cardTpl.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
     cardTpl.querySelector('.popup__features').textContent = offer.offer.features;
     cardTpl.querySelector('.popup__description').textContent = offer.offer.description;
-    cardTpl.querySelector('.popup__photos').querySelector('img').src = offer.offer.photos;
     cardTpl.querySelector('.popup__avatar').src = offer.author.avatar;
+    cardTpl.querySelector('.popup__photos').querySelector('img').src = getPhoto();
 
     function getType() {
       var type = offer.offer.type;
@@ -139,13 +141,26 @@ function generateCard(offers) {
       return type;
     }
 
+    function getPhoto() {
+      var photos = offer.offer.photos;
+
+      for (var i = 0; i < photos.length; i++) {
+        var photo = photos[i];
+      }
+
+      return photo;
+    }
+
+	var closePopup = card.querySelector('.popup__close');
+	closePopup.addEventListener('click', function () {
+		card.style.display = 'none';
+	   });
+
     map.insertBefore(card, filtersContainer);
   }
 }
 
 newOffers = generateOffers(OFFERS_COUNT);
-createPins(newOffers);
-generateCard(newOffers);
 
 var PIN_WIDTH = 62;
 var PIN_HEIGHT = 62;
@@ -153,70 +168,51 @@ var PIN_TAIL = 22;
 var MAIN_PIN_LEFT = 570;
 var MAIN_PIN_TOP = 375;
 
-var formFieldset = document.querySelector('.ad-form').querySelectorAll('fieldset');
-var filterFieldset = document.querySelector('.map__filters').querySelectorAll('select');
+var formFieldsets = document.querySelector('.ad-form').querySelectorAll('fieldset');
+var filterFieldsets = document.querySelector('.map__filters').querySelectorAll('select');
 var pinMain = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 
 var address = document.querySelector('#address');
-var mainPinCoord = ((PIN_WIDTH / 2) + MAIN_PIN_LEFT) + ', ' + ((PIN_HEIGHT / 2) + MAIN_PIN_TOP);
 
-var card = document.querySelector('.popup');
-var pin = document.querySelectorAll('.map__pin');
-var closePopup = card.querySelector('.popup__close');
+function getPinCoordinates(coordX, coordY) {
+  var mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + ((PIN_HEIGHT / 2) + coordY);
+  return mainPinCoord;
+};
 
-address.setAttribute('placeholder', mainPinCoord);
+address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
 
-card.style.display = 'none';
-
-for (var i = 0; i < formFieldset.length; i++) {
-  formFieldset[i].disabled = true;
+for (var i = 0; i < formFieldsets.length; i++) {
+  formFieldsets[i].disabled = true;
 }
 
-for (i = 0; i < filterFieldset.length; i++) {
-  filterFieldset[i].disabled = true;
-}
-
-for (i = 0; i < pin.length; i++) {
-  pin[i].style.display = 'none';
-  pin[0].style.display = 'block';
+for (i = 0; i < filterFieldsets.length; i++) {
+  filterFieldsets[i].disabled = true;
 }
 
 function onPinMainMouseup() {
+  createPins(newOffers);
 
-  for (i = 0; i < formFieldset.length; i++) {
-    formFieldset[i].disabled = false;
+  for (i = 0; i < formFieldsets.length; i++) {
+    formFieldsets[i].disabled = false;
   }
 
-  for (i = 0; i < filterFieldset.length; i++) {
-    filterFieldset[i].disabled = false;
-  }
-
-  for (i = 0; i < pin.length; i++) {
-    pin[i].style.display = 'block';
+  for (i = 0; i < filterFieldsets.length; i++) {
+    filterFieldsets[i].disabled = false;
   }
 
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
 
-  address.placeholder = ((PIN_WIDTH / 2) + MAIN_PIN_LEFT) + ', ' + (PIN_HEIGHT + MAIN_PIN_TOP + PIN_TAIL);
-}
 
-function onPinClick() {
-  card.style.display = 'block';
-}
+  function getPinCoordinates(coordX, coordY) {
+    var mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + (PIN_HEIGHT + coordY + PIN_TAIL);
+    return mainPinCoord;
+  };
+
+  address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
+
+  pinMain.removeEventListener('mouseup', onPinMainMouseup);
+};
 
 pinMain.addEventListener('mouseup', onPinMainMouseup);
-
-pin[1].addEventListener('click', onPinClick);
-pin[2].addEventListener('click', onPinClick);
-pin[3].addEventListener('click', onPinClick);
-pin[4].addEventListener('click', onPinClick);
-pin[5].addEventListener('click', onPinClick);
-pin[6].addEventListener('click', onPinClick);
-pin[7].addEventListener('click', onPinClick);
-pin[8].addEventListener('click', onPinClick);
-
-closePopup.addEventListener('click', function () {
-  card.style.display = 'none';
-});

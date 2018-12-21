@@ -96,7 +96,7 @@ function createPins(offers) {
     pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
 
     pin.addEventListener('click', function () {
-      generateCard(newOffers);
+      generateCard(offer);
     });
 
     fragment.appendChild(pin);
@@ -124,7 +124,8 @@ function generateCard(offers) {
     cardTpl.querySelector('.popup__features').textContent = offer.offer.features;
     cardTpl.querySelector('.popup__description').textContent = offer.offer.description;
     cardTpl.querySelector('.popup__avatar').src = offer.author.avatar;
-    cardTpl.querySelector('.popup__photos').querySelector('img').src = getPhoto();
+    cardTpl.querySelector('.popup__photos').querySelector('img').style.display = 'none';
+    cardTpl.querySelector('.popup__photos').querySelector('img').src = generatePhotos(offer.offer.photos);
 
     function getType() {
       var type = offer.offer.type;
@@ -141,14 +142,21 @@ function generateCard(offers) {
       return type;
     }
 
-    function getPhoto() {
-      var photos = offer.offer.photos;
+    function generatePhotos(imgs) {
+      var fragment = document.createDocumentFragment();
+      var photoPopup = cardTpl.querySelector('.popup__photos');
 
-      for (var i = 0; i < photos.length; i++) {
-        var photo = photos[i];
+      for (var i = 0; i < imgs.length; i++) {
+        generatePhoto(imgs[i]);
       }
 
-      return photo;
+      function generatePhoto() {
+        var photo = cardTpl.querySelector('.popup__photos').querySelector('img').cloneNode(true);
+        photo.style.display = 'inline';
+        photo.src = offersPhotos[i];
+        fragment.appendChild(photo);
+      }
+      photoPopup.appendChild(fragment);
     }
 
     var closePopup = card.querySelector('.popup__close');
@@ -175,8 +183,11 @@ var adForm = document.querySelector('.ad-form');
 
 var address = document.querySelector('#address');
 
-function getPinCoordinates(coordX, coordY) {
+function getPinCoordinates(coordX, coordY, coordTail) {
   var mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + ((PIN_HEIGHT / 2) + coordY);
+  if (coordTail) {
+    mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + (PIN_HEIGHT + coordY + coordTail);
+  }
   return mainPinCoord;
 }
 
@@ -203,14 +214,7 @@ function onPinMainMouseup() {
 
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-
-
-  function getActivePinCoordinates(coordX, coordY) {
-    var mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + (PIN_HEIGHT + coordY + PIN_TAIL);
-    return mainPinCoord;
-  }
-
-  address.value = getActivePinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
+  address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP, PIN_TAIL);
 
   pinMain.removeEventListener('mouseup', onPinMainMouseup);
 }

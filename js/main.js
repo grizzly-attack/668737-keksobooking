@@ -128,16 +128,16 @@ function generateCard(offer) {
     var type = offer.offer.type;
     switch (type) {
       case 'palace':
-      type = 'Дворец';
+        type = 'Дворец';
         break;
       case 'flat':
-      type = 'Квартира';
+        type = 'Квартира';
         break;
       case 'house':
-      type = 'Дом';
+        type = 'Дом';
         break;
       case 'bungalo':
-      type = 'Бунгало';
+        type = 'Бунгало';
     }
 
     return type;

@@ -109,33 +109,34 @@ var cardTpl = document.querySelector('#card').content.querySelector('.popup');
 var map = document.querySelector('.map');
 var filtersContainer = document.querySelector('.map__filters-container');
 
-function generateCard(offers) {
-
-  generateOneCard(offers[0]);
-
-  function generateOneCard(offer) {
+function generateCard(offer) {
     var card = cardTpl.cloneNode(true);
-    cardTpl.querySelector('.popup__title').textContent = offer.offer.title;
-    cardTpl.querySelector('.popup__text--address').textContent = offer.offer.address;
-    cardTpl.querySelector('.popup__text--price').textContent = offer.offer.price + '₽/ночь';
-    cardTpl.querySelector('.popup__type').textContent = getType();
-    cardTpl.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
-    cardTpl.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
-    cardTpl.querySelector('.popup__features').textContent = offer.offer.features;
-    cardTpl.querySelector('.popup__description').textContent = offer.offer.description;
-    cardTpl.querySelector('.popup__avatar').src = offer.author.avatar;
-    cardTpl.querySelector('.popup__photos').querySelector('img').style.display = 'none';
-    cardTpl.querySelector('.popup__photos').querySelector('img').src = generatePhotos(offer.offer.photos);
+    card.querySelector('.popup__title').textContent = offer.offer.title;
+    card.querySelector('.popup__text--address').textContent = offer.offer.address;
+    card.querySelector('.popup__text--price').textContent = offer.offer.price + '₽/ночь';
+    card.querySelector('.popup__type').textContent = getType();
+    card.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
+    card.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
+    card.querySelector('.popup__features').textContent = offer.offer.features;
+    card.querySelector('.popup__description').textContent = offer.offer.description;
+    card.querySelector('.popup__avatar').src = offer.author.avatar;
+    card.querySelector('.popup__photos').querySelector('img').style.display = 'none';
+    card.querySelector('.popup__photos').querySelector('img').src = generatePhotos(offer.offer.photos);
+
 
     function getType() {
       var type = offer.offer.type;
-      if (type === 'palace') {
+      switch (type) {
+        case 'palace':
         type = 'Дворец';
-      } else if (type === 'flat') {
+        break;
+        case 'flat':
         type = 'Квартира';
-      } else if (type === 'house') {
+        break;
+        case 'house':
         type = 'Дом';
-      } else if (type === 'bungalo') {
+        break;
+        case 'bungalo':
         type = 'Бунгало';
       }
 
@@ -144,16 +145,16 @@ function generateCard(offers) {
 
     function generatePhotos(imgs) {
       var fragment = document.createDocumentFragment();
-      var photoPopup = cardTpl.querySelector('.popup__photos');
+      var photoPopup = card.querySelector('.popup__photos');
 
       for (var i = 0; i < imgs.length; i++) {
         generatePhoto(imgs[i]);
       }
 
-      function generatePhoto() {
-        var photo = cardTpl.querySelector('.popup__photos').querySelector('img').cloneNode(true);
+      function generatePhoto(img) {
+        var photo = card.querySelector('.popup__photos').querySelector('img').cloneNode(true);
         photo.style.display = 'inline';
-        photo.src = offersPhotos[i];
+        photo.src = img;
         fragment.appendChild(photo);
       }
       photoPopup.appendChild(fragment);
@@ -161,11 +162,11 @@ function generateCard(offers) {
 
     var closePopup = card.querySelector('.popup__close');
     closePopup.addEventListener('click', function () {
-      card.style.display = 'none';
+      var popup = map.querySelector('.popup');
+      popup.parentElement.removeChild(popup);
     });
 
     map.insertBefore(card, filtersContainer);
-  }
 }
 
 newOffers = generateOffers(OFFERS_COUNT);

@@ -95,12 +95,16 @@ function createPins(offers) {
     pinImg.alt = offer.offer.title;
     pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
 
-    pin.addEventListener('click', function () {
+    function removeCard() {
       var popup = map.querySelector('.popup');
 
       if (popup) {
-        popup.parentElement.removeChild(popup);
+      popup.parentElement.removeChild(popup);
       }
+    }
+
+    pin.addEventListener('click', function () {
+      removeCard();
       generateCard(offer);
     });
 
@@ -119,17 +123,16 @@ function generateCard(offer) {
   card.querySelector('.popup__title').textContent = offer.offer.title;
   card.querySelector('.popup__text--address').textContent = offer.offer.address;
   card.querySelector('.popup__text--price').textContent = offer.offer.price + '₽/ночь';
-  card.querySelector('.popup__type').textContent = getType();
+  card.querySelector('.popup__type').textContent = getType(offer.offer.type);
   card.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
-  card.querySelector('.popup__features').textContent = offer.offer.features;
+  card.querySelector('.popup__features').textContent = generateFeatures(offer.offer.features);
   card.querySelector('.popup__description').textContent = offer.offer.description;
   card.querySelector('.popup__avatar').src = offer.author.avatar;
   card.querySelector('.popup__photos').querySelector('img').style.display = 'none';
   card.querySelector('.popup__photos').querySelector('img').src = generatePhotos(offer.offer.photos);
 
-  function getType() {
-    var type = offer.offer.type;
+  function getType(type) {
     switch (type) {
       case 'palace':
         type = 'Дворец';
@@ -143,8 +146,38 @@ function generateCard(offer) {
       case 'bungalo':
         type = 'Бунгало';
     }
-
     return type;
+  }
+
+  function generateFeatures(features) {
+
+    for (var i = 0; i < features.length; i++) {
+      generatePhoto(features[i]);
+    }
+
+    function generatePhoto(feature) {
+      console.log(feature);
+      switch (feature) {
+        case 'wifi':
+          feature.classList.add('popup__feature--wifi');
+          break;
+        case 'dishwasher':
+          feature.classList.add('popup__feature--dishwasher');
+          break;
+        case 'parking':
+          feature.classList.add('popup__feature--parking');
+          break;
+        case 'washer':
+          feature.classList.add('popup__feature--washer');
+          break;
+        case 'elevator':
+          feature.classList.add('popup__feature--elevator');
+          break;
+        case 'conditioner':
+          feature.classList.add('popup__feature--conditioner');
+      }
+      return feature;
+    }
   }
 
   function generatePhotos(imgs) {

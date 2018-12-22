@@ -96,6 +96,11 @@ function createPins(offers) {
     pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
 
     pin.addEventListener('click', function () {
+      var popup = map.querySelector('.popup');
+
+      if (popup) {
+        popup.parentElement.removeChild(popup);
+      }
       generateCard(offer);
     });
 
@@ -122,7 +127,6 @@ function generateCard(offer) {
   card.querySelector('.popup__avatar').src = offer.author.avatar;
   card.querySelector('.popup__photos').querySelector('img').style.display = 'none';
   card.querySelector('.popup__photos').querySelector('img').src = generatePhotos(offer.offer.photos);
-
 
   function getType() {
     var type = offer.offer.type;

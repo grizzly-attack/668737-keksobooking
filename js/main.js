@@ -151,38 +151,54 @@ function generateCard(offer) {
 
   function generateFeatures(features) {
 
+    var fragment = document.createDocumentFragment();
+    var featuresPopup = card.querySelector('.popup__features');
+    var featuresTpl = featuresPopup.querySelectorAll('.popup__feature');
+
     for (var i = 0; i < features.length; i++) {
-      generatePhoto(features[i]);
+      generateFeature(features[i]);
     }
 
-    function generatePhoto(feature) {
-      console.log(feature);
+    function generateFeature(feature) {
+
+      var featureItem = featuresPopup.querySelector('.popup__feature').cloneNode(true);
+      featureItem.classList = feature;
+
       switch (feature) {
         case 'wifi':
-          feature.classList.add('popup__feature--wifi');
+          feature.add('popup__feature--wifi');
           break;
         case 'dishwasher':
-          feature.classList.add('popup__feature--dishwasher');
+          feature.add('popup__feature--dishwasher');
           break;
         case 'parking':
-          feature.classList.add('popup__feature--parking');
+          feature.add('popup__feature--parking');
           break;
         case 'washer':
-          feature.classList.add('popup__feature--washer');
+          feature.add('popup__feature--washer');
           break;
         case 'elevator':
-          feature.classList.add('popup__feature--elevator');
+          feature.add('popup__feature--elevator');
           break;
         case 'conditioner':
-          feature.classList.add('popup__feature--conditioner');
+          feature.add('popup__feature--conditioner');
       }
-      return feature;
+
+      fragment.appendChild(feature);
     }
+    featuresTpl.parentElement.removeChild(featuresTpl);
+
+    for (var i = 0; i < featuresTpl.length; i++) {
+      featuresTpl.parentElement.removeChild(featuresTpl[i]);
+    }
+
+    featuresPopup.appendChild(fragment);
   }
 
   function generatePhotos(imgs) {
     var fragment = document.createDocumentFragment();
     var photoPopup = card.querySelector('.popup__photos');
+    var photoTpl = card.querySelector('.popup__photos').querySelector('img');
 
     for (var i = 0; i < imgs.length; i++) {
       generatePhoto(imgs[i]);
@@ -194,6 +210,7 @@ function generateCard(offer) {
       photo.src = img;
       fragment.appendChild(photo);
     }
+    photoTpl.parentElement.removeChild(photoTpl);
     photoPopup.appendChild(fragment);
   }
 

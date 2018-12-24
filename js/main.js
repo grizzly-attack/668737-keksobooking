@@ -126,7 +126,7 @@ function generateCard(offer) {
   card.querySelector('.popup__type').textContent = getType(offer.offer.type);
   card.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
-  card.querySelector('.popup__features').textContent = generateFeatures(offer.offer.features);
+  card.querySelector('.popup__features').querySelector('.popup__feature').textContent = generateFeatures(offer.offer.features);
   card.querySelector('.popup__description').textContent = offer.offer.description;
   card.querySelector('.popup__avatar').src = offer.author.avatar;
   card.querySelector('.popup__photos').querySelector('img').style.display = 'none';
@@ -153,7 +153,7 @@ function generateCard(offer) {
 
     var fragment = document.createDocumentFragment();
     var featuresPopup = card.querySelector('.popup__features');
-    var featuresTpl = featuresPopup.querySelectorAll('.popup__feature');
+    var featuresTpl = featuresPopup.querySelector('.popup__feature');
 
     for (var i = 0; i < features.length; i++) {
       generateFeature(features[i]);
@@ -162,29 +162,28 @@ function generateCard(offer) {
     function generateFeature(feature) {
 
       var featureItem = featuresPopup.querySelector('.popup__feature').cloneNode(true);
-      featureItem.classList = feature;
 
       switch (feature) {
         case 'wifi':
-          feature.add('popup__feature--wifi');
+          featureItem.classList.add('popup__feature--wifi');
           break;
         case 'dishwasher':
-          feature.add('popup__feature--dishwasher');
+          featureItem.classList.add('popup__feature--dishwasher');
           break;
         case 'parking':
-          feature.add('popup__feature--parking');
+          featureItem.classList.add('popup__feature--parking');
           break;
         case 'washer':
-          feature.add('popup__feature--washer');
+          featureItem.classList.add('popup__feature--washer');
           break;
         case 'elevator':
-          feature.add('popup__feature--elevator');
+          featureItem.classList.add('popup__feature--elevator');
           break;
         case 'conditioner':
-          feature.add('popup__feature--conditioner');
+          featureItem.classList.add('popup__feature--conditioner');
       }
 
-      fragment.appendChild(feature);
+      fragment.appendChild(featureItem);
     }
     featuresTpl.parentElement.removeChild(featuresTpl);
 

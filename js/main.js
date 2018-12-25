@@ -126,91 +126,70 @@ function generateCard(offer) {
   card.querySelector('.popup__type').textContent = getType(offer.offer.type);
   card.querySelector('.popup__text--capacity').textContent = offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей';
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.offer.checkin + ', выезд до ' + offer.offer.checkout;
-  card.querySelector('.popup__features').querySelector('.popup__feature').textContent = generateFeatures(offer.offer.features);
   card.querySelector('.popup__description').textContent = offer.offer.description;
   card.querySelector('.popup__avatar').src = offer.author.avatar;
-  card.querySelector('.popup__photos').querySelector('img').style.display = 'none';
-  card.querySelector('.popup__photos').querySelector('img').src = generatePhotos(offer.offer.photos);
+
+  generateFeatures(offer.offer.features);
+  generatePhotos(offer.offer.photos);
 
   function getType(type) {
     switch (type) {
       case 'palace':
-        type = 'Дворец';
-        break;
+        return 'Дворец';
       case 'flat':
-        type = 'Квартира';
-        break;
+        return 'Квартира';
       case 'house':
-        type = 'Дом';
-        break;
-      case 'bungalo':
-        type = 'Бунгало';
+        return 'Дом';
+      default:
+        return 'Бунгало';
     }
-    return type;
   }
 
   function generateFeatures(features) {
-
     var fragment = document.createDocumentFragment();
-    var featuresPopup = card.querySelector('.popup__features');
-    var featuresTpl = featuresPopup.querySelector('.popup__feature');
+    var block = card.querySelector('.popup__features');
 
-    for (var i = 0; i < features.length; i++) {
-      generateFeature(features[i]);
-    }
-
-    function generateFeature(feature) {
-
-      var featureItem = featuresPopup.querySelector('.popup__feature').cloneNode(true);
-
-      switch (feature) {
-        case 'wifi':
-          featureItem.classList.add('popup__feature--wifi');
-          break;
-        case 'dishwasher':
-          featureItem.classList.add('popup__feature--dishwasher');
-          break;
-        case 'parking':
-          featureItem.classList.add('popup__feature--parking');
-          break;
-        case 'washer':
-          featureItem.classList.add('popup__feature--washer');
-          break;
-        case 'elevator':
-          featureItem.classList.add('popup__feature--elevator');
-          break;
-        case 'conditioner':
-          featureItem.classList.add('popup__feature--conditioner');
+      for (var i = 0; i < features.length; i++) {
+        fragment.appendChild(getFeature(features[i]));
       }
 
-      fragment.appendChild(featureItem);
-    }
-    featuresTpl.parentElement.removeChild(featuresTpl);
-
-    for (var i = 0; i < featuresTpl.length; i++) {
-      featuresTpl.parentElement.removeChild(featuresTpl[i]);
+    while(block.firstChild){
+      block.removeChild(block.firstChild);
     }
 
-    featuresPopup.appendChild(fragment);
-  }
+    block.appendChild(fragment);
+
+      function getFeature(feature) {
+        var li = document.createElement('li');
+
+      li.classList.add('popup__feature', 'popup__feature--' + feature);
+
+        return li;
+      }
+    }
+
 
   function generatePhotos(imgs) {
     var fragment = document.createDocumentFragment();
     var photoPopup = card.querySelector('.popup__photos');
-    var photoTpl = card.querySelector('.popup__photos').querySelector('img');
+    var imgTpl = card.querySelector('.popup__photos').querySelector('img');
 
     for (var i = 0; i < imgs.length; i++) {
-      generatePhoto(imgs[i]);
+      fragment.appendChild(generatePhoto(imgs[i]));
+    }
+    while(photoPopup.firstChild){
+      photoPopup.removeChild(photoPopup.firstChild);
     }
 
-    function generatePhoto(img) {
-      var photo = card.querySelector('.popup__photos').querySelector('img').cloneNode(true);
-      photo.style.display = 'inline';
-      photo.src = img;
-      fragment.appendChild(photo);
-    }
-    photoTpl.parentElement.removeChild(photoTpl);
     photoPopup.appendChild(fragment);
+
+      function generatePhoto(imgSrc) {
+        var photo = imgTpl.cloneNode(true);
+        photo.style.display = 'inline';
+        photo.src = imgSrc;
+
+      return photo;
+      }
   }
 
   var closePopup = card.querySelector('.popup__close');

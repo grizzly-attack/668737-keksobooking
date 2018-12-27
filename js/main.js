@@ -162,12 +162,11 @@ function generateCard(offer) {
       function getFeature(feature) {
         var li = document.createElement('li');
 
-      li.classList.add('popup__feature', 'popup__feature--' + feature);
+        li.classList.add('popup__feature', 'popup__feature--' + feature);
 
         return li;
       }
     }
-
 
   function generatePhotos(imgs) {
     var fragment = document.createDocumentFragment();
@@ -253,3 +252,57 @@ function onPinMainMouseup() {
 }
 
 pinMain.addEventListener('mouseup', onPinMainMouseup);
+
+function generteMinPrice() {
+  var type = document.querySelector('#type');
+  var price = document.querySelector('#price');
+  var selind = type.options.selectedIndex;
+
+  switch (selind) {
+  case 0:
+    price.min = '0';
+    price.placeholder = '0';
+    break;
+  case 1:
+    price.min = '1000';
+    price.placeholder = '1000';
+    break;
+  case 2:
+    price.min = '5000';
+    price.placeholder = '5000';
+    break;
+  case 3:
+    price.min = '10000';
+    price.placeholder = '10000';
+  }
+}
+
+generteMinPrice()
+
+function synchronizeRooms() {
+  var rooms = document.querySelector('#room_number');
+  var capacity = document.querySelector('#capacity');
+  var roomind = rooms.options.selectedIndex;
+  var capacityind = capacity.options[0];
+
+  console.log(capacityind);
+
+  switch (roomind) {
+    case 0:
+      capacity.options[2].disabled = false;
+      break;
+    case 1:
+      capacity.options[1].disabled = false;
+      break;
+    case 2:
+      capacity.options[0].disabled = false;
+      break;
+    case 3:
+      capacity.options[0].disabled = true;
+      capacity.options[1].disabled = true;
+      capacity.options[2].disabled = true;
+      capacity.options[3].disabled = false;
+  }
+}
+
+synchronizeRooms()

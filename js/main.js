@@ -187,7 +187,7 @@ function generateCard(offer) {
       photo.style.display = 'inline';
       photo.src = imgSrc;
 
-    return photo;
+      return photo;
     }
   }
 

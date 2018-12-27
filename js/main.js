@@ -99,7 +99,7 @@ function createPins(offers) {
       var popup = map.querySelector('.popup');
 
       if (popup) {
-      popup.parentElement.removeChild(popup);
+        popup.parentElement.removeChild(popup);
       }
     }
 
@@ -149,24 +149,24 @@ function generateCard(offer) {
     var fragment = document.createDocumentFragment();
     var block = card.querySelector('.popup__features');
 
-      for (var i = 0; i < features.length; i++) {
-        fragment.appendChild(getFeature(features[i]));
-      }
+    for (var i = 0; i < features.length; i++) {
+      fragment.appendChild(getFeature(features[i]));
+    }
 
-    while(block.firstChild){
+    while (block.firstChild) {
       block.removeChild(block.firstChild);
     }
 
     block.appendChild(fragment);
 
-      function getFeature(feature) {
-        var li = document.createElement('li');
+    function getFeature(feature) {
+      var li = document.createElement('li');
 
-        li.classList.add('popup__feature', 'popup__feature--' + feature);
+      li.classList.add('popup__feature', 'popup__feature--' + feature);
 
-        return li;
-      }
+      return li;
     }
+  }
 
   function generatePhotos(imgs) {
     var fragment = document.createDocumentFragment();
@@ -176,19 +176,19 @@ function generateCard(offer) {
     for (var i = 0; i < imgs.length; i++) {
       fragment.appendChild(generatePhoto(imgs[i]));
     }
-    while(photoPopup.firstChild){
+    while (photoPopup.firstChild) {
       photoPopup.removeChild(photoPopup.firstChild);
     }
 
     photoPopup.appendChild(fragment);
 
-      function generatePhoto(imgSrc) {
-        var photo = imgTpl.cloneNode(true);
-        photo.style.display = 'inline';
-        photo.src = imgSrc;
+    function generatePhoto(imgSrc) {
+      var photo = imgTpl.cloneNode(true);
+      photo.style.display = 'inline';
+      photo.src = imgSrc;
 
-      return photo;
-      }
+    return photo;
+    }
   }
 
   var closePopup = card.querySelector('.popup__close');
@@ -259,33 +259,30 @@ function generteMinPrice() {
   var selind = type.options.selectedIndex;
 
   switch (selind) {
-  case 0:
-    price.min = '0';
-    price.placeholder = '0';
-    break;
-  case 1:
-    price.min = '1000';
-    price.placeholder = '1000';
-    break;
-  case 2:
-    price.min = '5000';
-    price.placeholder = '5000';
-    break;
-  case 3:
-    price.min = '10000';
-    price.placeholder = '10000';
+    case 0:
+      price.min = '0';
+      price.placeholder = '0';
+      break;
+    case 1:
+      price.min = '1000';
+      price.placeholder = '1000';
+      break;
+    case 2:
+      price.min = '5000';
+      price.placeholder = '5000';
+      break;
+    case 3:
+      price.min = '10000';
+      price.placeholder = '10000';
   }
 }
 
-generteMinPrice()
+generteMinPrice();
 
 function synchronizeRooms() {
   var rooms = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
   var roomind = rooms.options.selectedIndex;
-  var capacityind = capacity.options[0];
-
-  console.log(capacityind);
 
   switch (roomind) {
     case 0:
@@ -305,4 +302,4 @@ function synchronizeRooms() {
   }
 }
 
-synchronizeRooms()
+synchronizeRooms();

@@ -257,7 +257,6 @@ var MIN_PRICE = ['0', '1000', '5000', '10000'];
 var TYPE_OPTIONS = ['bungalo', 'flat', 'house', 'palace'];
 
 var typeSelect = document.querySelector('#type');
-var typeOption = typeSelect.querySelectorAll('option');
 var priceInput = document.querySelector('#price');
 
 typeSelect.addEventListener('change', generteMinPrice);
@@ -265,7 +264,7 @@ generteMinPrice();
 
 function generteMinPrice() {
 
-  for (var i = 0; i < typeSelect.length; i++) {
+  for (i = 0; i < typeSelect.length; i++) {
     if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[0] + '"]').selected) {
       priceInput.min = MIN_PRICE[0];
       priceInput.placeholder = MIN_PRICE[0];
@@ -293,7 +292,7 @@ synchronizeInTimes();
 synchronizeOutTimes();
 
 function synchronizeInTimes() {
-  for (var i = 0; i < timeIn.length; i++) {
+  for (i = 0; i < timeIn.length; i++) {
     if (timeIn.querySelector('[value="' + TIME_IN_OUT[0] + '"]').selected) {
       timeOut.querySelector('[value="' + TIME_IN_OUT[0] + '"]').selected = true;
     } else if (timeIn.querySelector('[value="' + TIME_IN_OUT[1] + '"]').selected) {
@@ -321,11 +320,11 @@ var capacitySelect = document.querySelector('#capacity');
 var capacityOptions = capacitySelect.querySelectorAll('option');
 
 var ROOM_CAPACITY_SYNC = {
-'1': ['1'],
-'2': ['1', '2'],
-'3': ['1', '2', '3'],
-'100': ['0']
-}
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0']
+};
 
 roomsSelect.addEventListener('change', synchronizeRooms);
 synchronizeRooms();
@@ -335,11 +334,11 @@ function synchronizeRooms() {
   var availableCapacities = ROOM_CAPACITY_SYNC[roomsValue];
   var currentActiveCapacity = capacitySelect.querySelector('option[selected]');
 
-  for (var i = 0; i < capacityOptions.length; i++) {
+  for (i = 0; i < capacityOptions.length; i++) {
     capacityOptions[i].disabled = (availableCapacities.indexOf(capacityOptions[i].value) === -1);
   }
 
   if (currentActiveCapacity.disabled) {
-  capacitySelect.querySelector('option[value="' + availableCapacities[0] + '"]').selected = true;
+    capacitySelect.querySelector('option[value="' + availableCapacities[0] + '"]').selected = true;
   }
 }

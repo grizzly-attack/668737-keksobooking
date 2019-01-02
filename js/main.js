@@ -280,7 +280,7 @@ function PinMainMouseupHandler(evt) {
     var MainPinTop = pinMain.offsetTop - shift.y;
     var MainPinLeft = pinMain.offsetLeft - shift.x;
 
-    if (MainPinTop < LEFT_LAST_COORD ) {
+    if (MainPinTop < LEFT_LAST_COORD) {
       MainPinTop = LEFT_LAST_COORD;
     }
 
@@ -292,7 +292,7 @@ function PinMainMouseupHandler(evt) {
       MainPinLeft = TOP_LAST_COORD;
     }
 
-    if (MainPinLeft > BOTTOM_LAST_COORD ) {
+    if (MainPinLeft > BOTTOM_LAST_COORD) {
       MainPinLeft = BOTTOM_LAST_COORD;
     }
 

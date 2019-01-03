@@ -253,6 +253,68 @@ function onPinMainMouseup() {
 
 pinMain.addEventListener('mouseup', onPinMainMouseup);
 
+function PinMainMouseupHandler(evt) {
+  var LEFT_LAST_COORD = '130';
+  var RIGHT_LAST_COORD = '630';
+  var TOP_LAST_COORD = '0';
+  var BOTTOM_LAST_COORD = '1138';
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var MouseMoveHandler = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    var MainPinTop = pinMain.offsetTop - shift.y;
+    var MainPinLeft = pinMain.offsetLeft - shift.x;
+
+    if (MainPinTop < LEFT_LAST_COORD) {
+      MainPinTop = LEFT_LAST_COORD;
+    }
+
+    if (MainPinTop > RIGHT_LAST_COORD) {
+      MainPinTop = RIGHT_LAST_COORD;
+    }
+
+    if (MainPinLeft < TOP_LAST_COORD) {
+      MainPinLeft = TOP_LAST_COORD;
+    }
+
+    if (MainPinLeft > BOTTOM_LAST_COORD) {
+      MainPinLeft = BOTTOM_LAST_COORD;
+    }
+
+    pinMain.style.top = MainPinTop + 'px';
+    pinMain.style.left = MainPinLeft + 'px';
+
+    address.value = getPinCoordinates(MainPinLeft, MainPinTop, PIN_TAIL);
+  };
+
+  var MouseUpHandler = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', MouseMoveHandler);
+    document.removeEventListener('mouseup', MouseUpHandler);
+  };
+
+  document.addEventListener('mousemove', MouseMoveHandler);
+  document.addEventListener('mouseup', MouseUpHandler);
+}
+
+pinMain.addEventListener('mousedown', PinMainMouseupHandler);
+
 var MIN_PRICE = ['0', '1000', '5000', '10000'];
 var TYPE_OPTIONS = ['bungalo', 'flat', 'house', 'palace'];
 

@@ -57,6 +57,7 @@
   window.mapLock = {
     pinMain: pinMain,
     PIN_TAIL: PIN_TAIL,
-    getPinCoordinates: getPinCoordinates
-  }
+    getPinCoordinates: getPinCoordinates,
+    address: address
+  };
 }) ();

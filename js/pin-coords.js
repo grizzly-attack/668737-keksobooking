@@ -47,7 +47,7 @@
       window.mapLock.pinMain.style.top = MainPinTop + 'px';
       window.mapLock.pinMain.style.left = MainPinLeft + 'px';
 
-      address.value = window.mapLock.getPinCoordinates(MainPinLeft, MainPinTop, window.mapLock.PIN_TAIL);
+      window.mapLock.address.value = window.mapLock.getPinCoordinates(MainPinLeft, MainPinTop, window.mapLock.PIN_TAIL);
     };
 
     var MouseUpHandler = function (upEvt) {

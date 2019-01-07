@@ -33,7 +33,41 @@
   }
 
   function onPinMainMouseup() {
-    window.pins.createPins(window.offers.newOffers);
+    window.backend.getData(function (offers) {
+      var pinTpl = document.querySelector('#pin').content.querySelector('.map__pin');
+      var container = document.querySelector('.map__pins');
+      var fragment = document.createDocumentFragment();
+
+      for (var i = 0; i < offers.length; i++) {
+        generateOnePin(offers[i]);
+      }
+
+      function generateOnePin(offer) {
+        var pin = pinTpl.cloneNode(true);
+        var pinImg = pin.querySelector('img');
+        pinImg.src = offer.author.avatar;
+        pinImg.alt = offer.offer.title;
+        pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
+
+        function removeCard() {
+          var popup = window.cards.map.querySelector('.popup');
+
+          if (popup) {
+            popup.parentElement.removeChild(popup);
+          }
+        }
+
+        pin.addEventListener('click', function () {
+          removeCard();
+          window.cards.generateCard(offer);
+        });
+
+        fragment.appendChild(pin);
+      }
+
+      container.appendChild(fragment);
+    }
+    );
 
     for (i = 0; i < formFieldsets.length; i++) {
       formFieldsets[i].disabled = false;
@@ -60,4 +94,11 @@
     getPinCoordinates: getPinCoordinates,
     address: address
   };
+
+  adForm.addEventListener('submit', function (evt) {
+    window.backend.sendData(new FormData(form), function (response) {
+      adForm.classList.remove('ad-form--disabled');
+    });
+    evt.preventDefault();
+  });
 }) ();

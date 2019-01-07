@@ -4,7 +4,7 @@
   var pinTpl = document.querySelector('#pin').content.querySelector('.map__pin');
   var container = document.querySelector('.map__pins');
 
-  function createPins(offers) {
+  /*window.backend.getData(function (offers) {
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < offers.length; i++) {
@@ -36,8 +36,8 @@
 
     container.appendChild(fragment);
   }
-
-  window.pins = {
-    createPins: createPins
-  };
+  )*/
+  //window.pins = {
+   //createPins: createPins
+  //};
 }) ();

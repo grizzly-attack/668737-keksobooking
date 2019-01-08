@@ -4,11 +4,13 @@
   var pinTpl = document.querySelector('#pin').content.querySelector('.map__pin');
   var container = document.querySelector('.map__pins');
 
-  /*window.backend.getData(function (offers) {
+  function createPins(offers) {
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < offers.length; i++) {
-      generateOnePin(offers[i]);
+      if (offers[i].offer) {
+        generateOnePin(offers[i]);
+      }
     }
 
     function generateOnePin(offer) {
@@ -29,6 +31,7 @@
       pin.addEventListener('click', function () {
         removeCard();
         window.cards.generateCard(offer);
+
       });
 
       fragment.appendChild(pin);
@@ -36,8 +39,8 @@
 
     container.appendChild(fragment);
   }
-  )*/
-  //window.pins = {
-   //createPins: createPins
-  //};
+
+  window.pins = {
+    createPins: createPins
+  };
 }) ();

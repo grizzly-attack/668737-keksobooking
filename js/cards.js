@@ -19,6 +19,11 @@
     generateFeatures(offer.offer.features);
     generatePhotos(offer.offer.photos);
 
+    if (!offer.offer.photos) {
+      generatePhotos.parentNode.removeChild(generatePhotos);
+      return;
+    }
+
     function getType(type) {
       switch (type) {
         case 'palace':
@@ -35,6 +40,11 @@
     function generateFeatures(features) {
       var fragment = document.createDocumentFragment();
       var block = card.querySelector('.popup__features');
+
+      if (features < 1) {
+        block.parentNode.removeChild(block);
+        return;
+      }
 
       for (var i = 0; i < features.length; i++) {
         fragment.appendChild(getFeature(features[i]));
@@ -59,6 +69,11 @@
       var fragment = document.createDocumentFragment();
       var photoPopup = card.querySelector('.popup__photos');
       var imgTpl = card.querySelector('.popup__photos').querySelector('img');
+
+      if (imgs < 1) {
+        photoPopup.parentNode.removeChild(photoPopup);
+        return;
+      }
 
       for (var i = 0; i < imgs.length; i++) {
         fragment.appendChild(generatePhoto(imgs[i]));

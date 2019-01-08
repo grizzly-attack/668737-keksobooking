@@ -14,7 +14,7 @@
 
   var address = document.querySelector('#address');
 
-  form.addEventListener('submit', function(evt) {
+  form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.sendData(new FormData(form), function (response) {
       form.reset();
@@ -73,7 +73,7 @@
       success.parentNode.removeChild(success);
     });
 
-    document.addEventListener('keydown', function(evt) {
+    document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === 27) {
         success.parentNode.removeChild(success);
       }
@@ -94,7 +94,7 @@
       error.parentNode.removeChild(error);
     });
 
-    document.addEventListener('keydown', function(evt) {
+    document.addEventListener('keydown', function (evt) {
       if (evt.keyCode === 27) {
         error.parentNode.removeChild(error);
       }
@@ -122,5 +122,4 @@
     getPinCoordinates: getPinCoordinates,
     address: address
   };
-
 }) ();

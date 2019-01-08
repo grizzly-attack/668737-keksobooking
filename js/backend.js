@@ -5,7 +5,7 @@
   window.backend = {
     getData: getData,
     sendData: sendData
-  }
+  };
 
   function sendRequest(method, url, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();
@@ -17,7 +17,7 @@
       if (xhr.status === 200 && typeof onLoad === 'function') {
         onLoad(xhr.response);
       } else {
-        if (typeof onError === 'function'){
+        if (typeof onError === 'function') {
           onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
         }
       }
@@ -37,10 +37,10 @@
   }
 
   function getData(onLoad, onError) {
-    sendRequest('GET', 'https://js.dump.academy/keksobooking/data', onLoad, onError)
-  };
+    sendRequest('GET', 'https://js.dump.academy/keksobooking/data', onLoad, onError);
+  }
 
-  function sendData (data, onLoad, onError) {
-    sendRequest('POST', 'https://js.dump.academy/keksobooking', onLoad, onError, data)
-  };
+  function sendData(data, onLoad, onError) {
+    sendRequest('POST', 'https://js.dump.academy/keksobooking', onLoad, onError, data);
+  }
 })();

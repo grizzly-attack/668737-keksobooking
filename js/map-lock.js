@@ -17,10 +17,23 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.sendData(new FormData(form), function (response) {
+      var mapPins = document.querySelectorAll('.map__pin');
       form.reset();
-      address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP, PIN_TAIL);
+      pinMain.style='left: 570px; top: 375px';
+      pinMain.addEventListener('mouseup', onPinMainMouseup);
 
+      for (var i = 0; i < mapPins.length; i++) {
+        if (i > 0) {
+          mapPins[i].parentNode.removeChild(mapPins[i]);
+        }
+      }
+
+      pinMain
+
+      address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
       createSuccess();
+      window.cards.map.classList.add('map--faded');
+
     }, createSendErrorMessage);
   });
 
@@ -122,4 +135,4 @@
     getPinCoordinates: getPinCoordinates,
     address: address
   };
-}) ();
+})();

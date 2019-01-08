@@ -19,11 +19,6 @@
     generateFeatures(offer.offer.features);
     generatePhotos(offer.offer.photos);
 
-    if (!offer.offer.photos) {
-      generatePhotos.parentNode.removeChild(generatePhotos);
-      return;
-    }
-
     function getType(type) {
       switch (type) {
         case 'palace':
@@ -41,13 +36,12 @@
       var fragment = document.createDocumentFragment();
       var block = card.querySelector('.popup__features');
 
-      if (features < 1) {
-        block.parentNode.removeChild(block);
-        return;
-      }
-
       for (var i = 0; i < features.length; i++) {
-        fragment.appendChild(getFeature(features[i]));
+        if (features != null && features.length > 0) {
+          fragment.appendChild(getFeature(features[i]));
+        } else {
+          block.parentNode.removeChild(block);
+        }
       }
 
       while (block.firstChild) {
@@ -70,13 +64,12 @@
       var photoPopup = card.querySelector('.popup__photos');
       var imgTpl = card.querySelector('.popup__photos').querySelector('img');
 
-      if (imgs < 1) {
-        photoPopup.parentNode.removeChild(photoPopup);
-        return;
-      }
-
       for (var i = 0; i < imgs.length; i++) {
-        fragment.appendChild(generatePhoto(imgs[i]));
+        if (imgs != null && imgs.length > 0) {
+          fragment.appendChild(generatePhoto(imgs[i]));
+        } else {
+          photoPopup.parentNode.removeChild(photoPopup);
+        }
       }
       while (photoPopup.firstChild) {
         photoPopup.removeChild(photoPopup.firstChild);
@@ -108,4 +101,4 @@
   };
 
   window.offers.newOffers = window.offers.generateOffers(window.offers.OFFERS_COUNT);
-}) ();
+})();

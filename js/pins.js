@@ -43,4 +43,4 @@
   window.pins = {
     createPins: createPins
   };
-}) ();
+})();

@@ -84,4 +84,4 @@
     newOffers: newOffers,
     generateOffers: generateOffers
   };
-}) ();
+})();

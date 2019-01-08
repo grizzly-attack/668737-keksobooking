@@ -90,4 +90,4 @@
       capacitySelect.querySelector('option[value="' + availableCapacities[0] + '"]').selected = true;
     }
   }
-}) ();
+})();

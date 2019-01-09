@@ -8,7 +8,9 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < offers.length; i++) {
-      generateOnePin(offers[i]);
+      if (offers[i].offer) {
+        generateOnePin(offers[i]);
+      }
     }
 
     function generateOnePin(offer) {
@@ -29,6 +31,7 @@
       pin.addEventListener('click', function () {
         removeCard();
         window.cards.generateCard(offer);
+
       });
 
       fragment.appendChild(pin);
@@ -40,4 +43,4 @@
   window.pins = {
     createPins: createPins
   };
-}) ();
+})();

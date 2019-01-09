@@ -62,4 +62,4 @@
   }
 
   window.mapLock.pinMain.addEventListener('mousedown', PinMainMouseupHandler);
-}) ();
+})();

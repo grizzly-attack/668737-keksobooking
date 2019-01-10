@@ -28,11 +28,10 @@
         }
       }
 
-      pinMain
-
       address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
       createSuccess();
       window.cards.map.classList.add('map--faded');
+      form.classList.add('ad-form--disabled');
 
     }, createSendErrorMessage);
   });
@@ -128,6 +127,8 @@
       document.location.reload(true);
     });
   }
+
+
 
   window.mapLock = {
     pinMain: pinMain,

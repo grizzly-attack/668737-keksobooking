@@ -21,7 +21,7 @@
   }
 
   function generatePins(offers) {
-	  var pins = container.querySelectorAll('.map__pin:not([class*="map__pin--main"])');
+    var pins = container.querySelectorAll('.map__pin:not([class*="map__pin--main"])');
     var fragment = document.createDocumentFragment();
 
     pins.forEach(function (pin) {
@@ -116,7 +116,7 @@
             .filter(function (offer) {
               return checkFilterFeatures(offer.offer.features, values.features);
             });
-          }
+        }
 
         function checkFilterFeatures(offerFeatures, filterFeatures) {
           var isSuitable = true;
@@ -140,7 +140,7 @@
             case 'high':
               return offerPrice > Price.middle;
             default:
-            return true;
+              return true;
           }
         }
 

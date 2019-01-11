@@ -16,7 +16,7 @@
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.sendData(new FormData(form), function (response) {
+    window.backend.sendData(new FormData(form), function () {
       var mapPins = document.querySelectorAll('.map__pin');
       form.reset();
       pinMain.style = 'left: 570px; top: 375px';

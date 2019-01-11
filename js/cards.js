@@ -36,12 +36,12 @@
       var fragment = document.createDocumentFragment();
       var block = card.querySelector('.popup__features');
 
-      for (var i = 0; i < features.length; i++) {
-        if (features != null && features.length > 0) {
+      if (features !== null && features.length > 0) {
+        for (var i = 0; i < features.length; i++) {
           fragment.appendChild(getFeature(features[i]));
-        } else {
-          block.parentNode.removeChild(block);
         }
+      } else {
+        block.parentNode.removeChild(block);
       }
 
       while (block.firstChild) {
@@ -64,13 +64,14 @@
       var photoPopup = card.querySelector('.popup__photos');
       var imgTpl = card.querySelector('.popup__photos').querySelector('img');
 
-      for (var i = 0; i < imgs.length; i++) {
-        if (imgs != null && imgs.length > 0) {
+      if (imgs !== null && imgs.length > 0) {
+        for (var i = 0; i < imgs.length; i++) {
           fragment.appendChild(generatePhoto(imgs[i]));
-        } else {
-          photoPopup.parentNode.removeChild(photoPopup);
         }
+      } else {
+        photoPopup.parentNode.removeChild(photoPopup);
       }
+
       while (photoPopup.firstChild) {
         photoPopup.removeChild(photoPopup.firstChild);
       }

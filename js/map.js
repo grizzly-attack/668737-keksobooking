@@ -19,7 +19,7 @@
     window.backend.sendData(new FormData(form), function (response) {
       var mapPins = document.querySelectorAll('.map__pin');
       form.reset();
-      pinMain.style='left: 570px; top: 375px';
+      pinMain.style = 'left: 570px; top: 375px';
       pinMain.addEventListener('mouseup', onPinMainMouseup);
 
       for (var i = 0; i < mapPins.length; i++) {
@@ -45,7 +45,7 @@
   }
   blockMap();
 
-  function blockMap () {
+  function blockMap() {
     address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP);
 
     for (var i = 0; i < formFieldsets.length; i++) {

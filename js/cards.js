@@ -36,7 +36,7 @@
       var fragment = document.createDocumentFragment();
       var block = card.querySelector('.popup__features');
 
-      if (features != null && features.length > 0) {
+      if (features !== null && features.length > 0) {
         for (var i = 0; i < features.length; i++) {
           fragment.appendChild(getFeature(features[i]));
         }
@@ -64,7 +64,7 @@
       var photoPopup = card.querySelector('.popup__photos');
       var imgTpl = card.querySelector('.popup__photos').querySelector('img');
 
-      if (imgs != null && imgs.length > 0) {
+      if (imgs !== null && imgs.length > 0) {
         for (var i = 0; i < imgs.length; i++) {
           fragment.appendChild(generatePhoto(imgs[i]));
         }

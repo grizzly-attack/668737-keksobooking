@@ -36,7 +36,7 @@
       var fragment = document.createDocumentFragment();
       var block = card.querySelector('.popup__features');
 
-      if (features !== null && features.length > 0) {
+      if (features && features.length > 0) {
         for (var i = 0; i < features.length; i++) {
           fragment.appendChild(getFeature(features[i]));
         }
@@ -64,7 +64,7 @@
       var photoPopup = card.querySelector('.popup__photos');
       var imgTpl = card.querySelector('.popup__photos').querySelector('img');
 
-      if (imgs !== null && imgs.length > 0) {
+      if (imgs && imgs.length > 0) {
         for (var i = 0; i < imgs.length; i++) {
           fragment.appendChild(generatePhoto(imgs[i]));
         }
@@ -88,6 +88,7 @@
     }
 
     var closePopup = card.querySelector('.popup__close');
+
     closePopup.addEventListener('click', function () {
       var popup = map.querySelector('.popup');
       popup.parentElement.removeChild(popup);
@@ -95,6 +96,13 @@
 
     map.insertBefore(card, filtersContainer);
   }
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 27) {
+      var popup = map.querySelector('.popup');
+      popup.parentElement.removeChild(popup);
+    }
+  });
 
   window.cards = {
     generateCard: generateCard,

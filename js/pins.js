@@ -42,10 +42,10 @@
       pinImg.alt = offer.offer.title;
       pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
 
-      pin.addEventListener('click', function (evt) {
+      pin.addEventListener('click', function () {
         removeCard();
         window.cards.generateCard(offer);
-        evt.target.classList.add('map__pin--active');
+        pin.classList.add('map__pin--active');
       });
 
       fragment.appendChild(pin);
@@ -89,6 +89,10 @@
       }
 
       var lastTimeout = window.setTimeout(function () {
+        setupFilter();
+      }, DEBOUNCE_INTERVAL);
+
+      function setupFilter() {
         var values = {
           type: typeSelect.value,
           price: priceSelect.value,
@@ -155,8 +159,7 @@
 
           return result;
         }
-      },
-      DEBOUNCE_INTERVAL);
+      }
     }
   }
 

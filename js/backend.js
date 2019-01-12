@@ -1,13 +1,12 @@
 'use strict';
-// принимает данные
+
 (function () {
+  var TIMEOUT = 10000;
 
   window.backend = {
     getData: getData,
     sendData: sendData
   };
-
-  var TIMEOUT = 10000;
 
   function sendRequest(method, url, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();

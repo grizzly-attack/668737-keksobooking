@@ -8,8 +8,6 @@
     'palace': 10000
   };
 
-  var TIME_IN_OUT = ['12:00', '13:00', '14:00'];
-
   var ROOMS_CAPACITIES_SYNC = {
     '1': ['1'],
     '2': ['1', '2'],
@@ -32,32 +30,15 @@
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
 
-  timeIn.addEventListener('change', synchronizeInTimes);
-  timeOut.addEventListener('change', synchronizeOutTimes);
-  synchronizeInTimes();
-  synchronizeOutTimes();
+  timeIn.addEventListener('change', synchronizeTimes);
+  timeOut.addEventListener('change', synchronizeTimes);
+  synchronizeTimes();
 
-  function synchronizeInTimes() {
-    for (var i = 0; i < timeIn.length; i++) {
-      if (timeIn.querySelector('[value="' + TIME_IN_OUT[0] + '"]').selected) {
-        timeOut.querySelector('[value="' + TIME_IN_OUT[0] + '"]').selected = true;
-      } else if (timeIn.querySelector('[value="' + TIME_IN_OUT[1] + '"]').selected) {
-        timeOut.querySelector('[value="' + TIME_IN_OUT[1] + '"]').selected = true;
-      } else if (timeIn.querySelector('[value="' + TIME_IN_OUT[2] + '"]').selected) {
-        timeOut.querySelector('[value="' + TIME_IN_OUT[2] + '"]').selected = true;
-      }
-    }
-  }
-
-  function synchronizeOutTimes() {
-    for (var j = 0; j < timeOut.length; j++) {
-      if (timeOut.querySelector('[value="' + TIME_IN_OUT[0] + '"]').selected) {
-        timeIn.querySelector('[value="' + TIME_IN_OUT[0] + '"]').selected = true;
-      } else if (timeOut.querySelector('[value="' + TIME_IN_OUT[1] + '"]').selected) {
-        timeIn.querySelector('[value="' + TIME_IN_OUT[1] + '"]').selected = true;
-      } else if (timeOut.querySelector('[value="' + TIME_IN_OUT[2] + '"]').selected) {
-        timeIn.querySelector('[value="' + TIME_IN_OUT[2] + '"]').selected = true;
-      }
+  function synchronizeTimes(evt) {
+    if (evt && evt.target === timeIn) {
+      timeOut.value = timeIn.value;
+    } else {
+      timeIn.value = timeOut.value;
     }
   }
 

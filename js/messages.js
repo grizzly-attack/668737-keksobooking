@@ -2,12 +2,12 @@
 
 (function () {
   var ESC_KEYCODE = 27;
+  var container = document.querySelector('main');
 
   function createSuccessMessage() {
-    var container = document.querySelector('main');
     var successTpl = document.querySelector('#success').content.querySelector('.success');
     var success = successTpl.cloneNode(true);
-    container.appendChild(success);
+
     success.addEventListener('click', function () {
       success.parentNode.removeChild(success);
     });
@@ -17,14 +17,15 @@
         success.parentNode.removeChild(success);
       }
     });
+
+    container.appendChild(success);
   }
 
   function createSendErrorMessage() {
-    var container = document.querySelector('main');
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
     var button = error.querySelector('.error__button');
-    container.appendChild(error);
+
     error.addEventListener('click', function () {
       error.parentNode.removeChild(error);
     });
@@ -38,21 +39,24 @@
         error.parentNode.removeChild(error);
       }
     });
+
+    container.appendChild(error);
   }
 
   function createGetErrorMessage() {
-    var container = document.querySelector('main');
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
     var button = error.querySelector('.error__button');
-    container.appendChild(error);
     var errorText = error.querySelector('.error__message');
+
     errorText.textContent = 'Произошла ошибка';
     button.textContent = 'OK';
 
     button.addEventListener('click', function () {
       document.location.reload(true);
     });
+
+    container.appendChild(error);
   }
 
   window.messages = {

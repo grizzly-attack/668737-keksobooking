@@ -136,11 +136,11 @@
         function checkFilterPrice(offerPrice, filterValue) {
           switch (filterValue) {
             case 'low':
-              return offerPrice < Price.low;
+              return offerPrice <= Price.low;
             case 'middle':
               return offerPrice > Price.low && offerPrice < Price.middle;
             case 'high':
-              return offerPrice > Price.middle;
+              return offerPrice >= Price.middle;
             default:
               return true;
           }

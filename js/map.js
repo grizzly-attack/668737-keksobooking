@@ -56,10 +56,9 @@
   }
 
   function onMapReset(evt) {
-    if (evt){
+    if (evt) {
       evt.preventDefault();
-      var mapPins = document.querySelector('.map__pins');
-      var mapPinsButton = mapPins.querySelectorAll('button[type="button"]');
+      var mapPins = document.querySelector('.map__pins').querySelectorAll('button[type="button"]');
       var popup =  window.cards.map.querySelector('.popup');
       var activePin =  window.cards.map.querySelector('.map__pin--active');
 
@@ -72,8 +71,8 @@
       pinMain.addEventListener('mouseup', onPinMainMouseup);
       document.querySelector('#capacity').options[2].selected = true;
 
-      for (var i = 0; i < mapPinsButton.length; i++) {
-        mapPinsButton[i].parentNode.removeChild(mapPinsButton[i]);
+      for (var i = 0; i < mapPins.length; i++) {
+        mapPins[i].parentNode.removeChild(mapPins[i]);
       }
 
       if(activePin) {
@@ -105,7 +104,6 @@
 
     window.cards.map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
-    address.value = getPinCoordinates(MAIN_PIN_LEFT, MAIN_PIN_TOP, PIN_TAIL);
 
     pinMain.removeEventListener('mouseup', onPinMainMouseup);
   }
@@ -114,14 +112,13 @@
     pinMain.addEventListener('mouseup', onPinMainMouseup);
   }
 
-
-  function PinMainMouseupHandler(evt) {
+  function pinMainMouseupHandler(evt) {
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
 
-    var MouseMoveHandler = function (moveEvt) {
+    var mouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
 
       var shift = {
@@ -134,41 +131,41 @@
         y: moveEvt.clientY
       };
 
-      var MainPinTop = pinMain.offsetTop - shift.y;
-      var MainPinLeft = pinMain.offsetLeft - shift.x;
+      var mainPinTop = pinMain.offsetTop - shift.y;
+      var mainPinLeft = pinMain.offsetLeft - shift.x;
 
-      if (MainPinTop < LEFT_LAST_COORD) {
-        MainPinTop = LEFT_LAST_COORD;
+      if (mainPinTop < LEFT_LAST_COORD) {
+        mainPinTop = LEFT_LAST_COORD;
       }
 
-      if (MainPinTop > RIGHT_LAST_COORD) {
-        MainPinTop = RIGHT_LAST_COORD;
+      if (mainPinTop > RIGHT_LAST_COORD) {
+        mainPinTop = RIGHT_LAST_COORD;
       }
 
-      if (MainPinLeft < TOP_LAST_COORD) {
-        MainPinLeft = TOP_LAST_COORD;
+      if (mainPinLeft < TOP_LAST_COORD) {
+        mainPinLeft = TOP_LAST_COORD;
       }
 
-      if (MainPinLeft > BOTTOM_LAST_COORD) {
-        MainPinLeft = BOTTOM_LAST_COORD;
+      if (mainPinLeft > BOTTOM_LAST_COORD) {
+        mainPinLeft = BOTTOM_LAST_COORD;
       }
 
-      pinMain.style.top = MainPinTop + 'px';
-      pinMain.style.left = MainPinLeft + 'px';
+      pinMain.style.top = mainPinTop + 'px';
+      pinMain.style.left = mainPinLeft + 'px';
 
-      address.value = getPinCoordinates(MainPinLeft, MainPinTop, PIN_TAIL);
+      address.value = getPinCoordinates(mainPinLeft, mainPinTop, PIN_TAIL);
     };
 
-    var MouseUpHandler = function (upEvt) {
+    var mouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
 
-      document.removeEventListener('mousemove', MouseMoveHandler);
-      document.removeEventListener('mouseup', MouseUpHandler);
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
     };
 
-    document.addEventListener('mousemove', MouseMoveHandler);
-    document.addEventListener('mouseup', MouseUpHandler);
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
   }
 
-  pinMain.addEventListener('mousedown', PinMainMouseupHandler);
+  pinMain.addEventListener('mousedown', pinMainMouseupHandler);
 })();

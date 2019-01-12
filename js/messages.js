@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var ESC_KEYCODE = 27;
+
   function createSuccessMessage() {
     var container = document.querySelector('main');
     var successTpl = document.querySelector('#success').content.querySelector('.success');
@@ -11,7 +13,7 @@
     });
 
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === ESC_KEYCODE) {
         success.parentNode.removeChild(success);
       }
     });
@@ -32,7 +34,7 @@
     });
 
     document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27) {
+      if (evt.keyCode === ESC_KEYCODE) {
         error.parentNode.removeChild(error);
       }
     });
@@ -56,6 +58,7 @@
   window.messages = {
     createSuccessMessage: createSuccessMessage,
     createSendErrorMessage: createSendErrorMessage,
-    createGetErrorMessage: createGetErrorMessage
+    createGetErrorMessage: createGetErrorMessage,
+    ESC_KEYCODE: ESC_KEYCODE
   };
 })();

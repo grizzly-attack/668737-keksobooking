@@ -98,7 +98,7 @@
   }
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === window.messages.ESC_KEYCODE) {
       var popup = map.querySelector('.popup');
       popup.parentElement.removeChild(popup);
     }

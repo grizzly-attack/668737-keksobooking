@@ -7,10 +7,10 @@
   var MAIN_PIN_LEFT = 570;
   var MAIN_PIN_TOP = 375;
 
-  var LEFT_LAST_COORD = '130';
-  var RIGHT_LAST_COORD = '630';
-  var TOP_LAST_COORD = '0';
-  var BOTTOM_LAST_COORD = '1138';
+  var LEFT_LAST_COORD = 130;
+  var RIGHT_LAST_COORD = 630;
+  var TOP_LAST_COORD = 0;
+  var BOTTOM_LAST_COORD = 1138;
 
   var formFieldsets = document.querySelector('.ad-form').querySelectorAll('fieldset');
   var filterForm = document.querySelector('.map__filters');
@@ -24,16 +24,13 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.sendData(new FormData(form), function () {
-      resetMap();
+      onMapReset(evt);
       window.messages.createSuccessMessage();
 
     }, window.messages.createSendErrorMessage);
   });
 
-  resetButton.addEventListener('click', function (evt) {
-    evt.preventDefault();
-    resetMap();
-  });
+  resetButton.addEventListener('click', onMapReset);
 
   function getPinCoordinates(coordX, coordY, coordTail) {
     var mainPinCoord = ((PIN_WIDTH / 2) + coordX) + ', ' + ((PIN_HEIGHT / 2) + coordY);
@@ -58,27 +55,39 @@
     features.disabled = true;
   }
 
-  function resetMap() {
-    var mapPins = document.querySelectorAll('.map__pin');
-    var priceInput = document.querySelector('#price');
+  function onMapReset(evt) {
+    if (evt){
+      evt.preventDefault();
+      var mapPins = document.querySelector('.map__pins');
+      var mapPinsButton = mapPins.querySelectorAll('button[type="button"]');
+      var popup =  window.cards.map.querySelector('.popup');
+      var activePin =  window.cards.map.querySelector('.map__pin--active');
 
-    form.reset();
-    filterForm.reset();
-    priceInput.placeholder = '1000';
+      form.reset();
+      filterForm.reset();
 
-    pinMain.style = 'left: 570px; top: 375px';
-    pinMain.addEventListener('mouseup', onPinMainMouseup);
-    document.querySelector('#capacity').options[2].selected = true;
+      pinMain.style.top = MAIN_PIN_TOP + 'px';
+      pinMain.style.left = MAIN_PIN_LEFT + 'px';
 
-    for (var i = 0; i < mapPins.length; i++) {
-      if (i > 0) {
-        mapPins[i].parentNode.removeChild(mapPins[i]);
+      pinMain.addEventListener('mouseup', onPinMainMouseup);
+      document.querySelector('#capacity').options[2].selected = true;
+
+      for (var i = 0; i < mapPinsButton.length; i++) {
+        mapPinsButton[i].parentNode.removeChild(mapPinsButton[i]);
       }
-    }
 
-    blockMap();
-    window.cards.map.classList.add('map--faded');
-    form.classList.add('ad-form--disabled');
+      if(activePin) {
+        activePin.classList.remove('map__pin--active');
+      }
+
+      if(popup) {
+        popup.parentElement.removeChild(popup);
+      }
+
+      blockMap();
+      window.cards.map.classList.add('map--faded');
+      form.classList.add('ad-form--disabled');
+    }
   }
 
   function onPinMainMouseup() {

@@ -1,8 +1,13 @@
 'use strict';
 
 (function () {
-  var MIN_PRICES = ['0', '1000', '5000', '10000'];
-  var TYPE_OPTIONS = ['bungalo', 'flat', 'house', 'palace'];
+  var TYPES_PRICES_SYNC = {
+    'bungalo': 0,
+    'flat': 1000,
+    'house': 5000,
+    'palace': 10000
+  };
+
   var TIME_IN_OUT = ['12:00', '13:00', '14:00'];
 
   var ROOMS_CAPACITIES_SYNC = {
@@ -19,22 +24,9 @@
   generteMinPrice();
 
   function generteMinPrice() {
-
-    for (var i = 0; i < typeSelect.length; i++) {
-      if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[0] + '"]').selected) {
-        priceInput.min = MIN_PRICES[0];
-        priceInput.placeholder = MIN_PRICES[0];
-      } else if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[1] + '"]').selected) {
-        priceInput.min = MIN_PRICES[1];
-        priceInput.placeholder = MIN_PRICES[1];
-      } else if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[2] + '"]').selected) {
-        priceInput.min = MIN_PRICES[2];
-        priceInput.placeholder = MIN_PRICES[2];
-      } else if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[3] + '"]').selected) {
-        priceInput.min = MIN_PRICES[3];
-        priceInput.placeholder = MIN_PRICES[3];
-      }
-    }
+    var typeValue = typeSelect.value;
+    priceInput.min = TYPES_PRICES_SYNC[typeValue];
+    priceInput.placeholder = TYPES_PRICES_SYNC[typeValue];
   }
 
   var timeIn = document.querySelector('#timein');

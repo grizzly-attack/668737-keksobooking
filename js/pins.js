@@ -88,9 +88,7 @@
         window.clearTimeout(lastTimeout);
       }
 
-      var lastTimeout = window.setTimeout(function () {
-        setupFilter();
-      }, DEBOUNCE_INTERVAL);
+      var lastTimeout = window.setTimeout(setupFilter, DEBOUNCE_INTERVAL);
 
       function setupFilter() {
         var values = {

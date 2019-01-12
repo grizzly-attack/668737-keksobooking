@@ -98,7 +98,7 @@
   function onClosePopupClick() {
     var popup = map.querySelector('.popup');
     popup.parentElement.removeChild(popup);
-  };
+  }
 
   document.addEventListener('keydown', function (evt) {
     if (evt.keyCode === window.messages.ESC_KEYCODE) {

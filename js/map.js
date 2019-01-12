@@ -59,8 +59,8 @@
     if (evt) {
       evt.preventDefault();
       var mapPins = document.querySelector('.map__pins').querySelectorAll('button[type="button"]');
-      var popup =  window.cards.map.querySelector('.popup');
-      var activePin =  window.cards.map.querySelector('.map__pin--active');
+      var popup = window.cards.map.querySelector('.popup');
+      var activePin = window.cards.map.querySelector('.map__pin--active');
 
       form.reset();
       filterForm.reset();
@@ -75,11 +75,11 @@
         mapPins[i].parentNode.removeChild(mapPins[i]);
       }
 
-      if(activePin) {
+      if (activePin) {
         activePin.classList.remove('map__pin--active');
       }
 
-      if(popup) {
+      if (popup) {
         popup.parentElement.removeChild(popup);
       }
 

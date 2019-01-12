@@ -7,33 +7,32 @@
   var MAIN_PIN_LEFT = 570;
   var MAIN_PIN_TOP = 375;
 
+  var LEFT_LAST_COORD = '130';
+  var RIGHT_LAST_COORD = '630';
+  var TOP_LAST_COORD = '0';
+  var BOTTOM_LAST_COORD = '1138';
+
   var formFieldsets = document.querySelector('.ad-form').querySelectorAll('fieldset');
-  var filterFieldsets = document.querySelector('.map__filters').querySelectorAll('select');
+  var filterForm = document.querySelector('.map__filters');
+  var filterFieldsets = filterForm.querySelectorAll('select');
   var pinMain = document.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
-
+  var features = document.querySelector('.map__features');
   var address = document.querySelector('#address');
+  var resetButton = document.querySelector('.ad-form__reset');
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.sendData(new FormData(form), function () {
-      var mapPins = document.querySelectorAll('.map__pin');
-      form.reset();
-      pinMain.style = 'left: 570px; top: 375px';
-      pinMain.addEventListener('mouseup', onPinMainMouseup);
-
-      for (var i = 0; i < mapPins.length; i++) {
-        if (i > 0) {
-          mapPins[i].parentNode.removeChild(mapPins[i]);
-        }
-      }
-
-      blockMap();
+      resetMap();
       window.messages.createSuccessMessage();
-      window.cards.map.classList.add('map--faded');
-      form.classList.add('ad-form--disabled');
 
     }, window.messages.createSendErrorMessage);
+  });
+
+  resetButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    resetMap();
   });
 
   function getPinCoordinates(coordX, coordY, coordTail) {
@@ -55,6 +54,31 @@
     for (i = 0; i < filterFieldsets.length; i++) {
       filterFieldsets[i].disabled = true;
     }
+
+    features.disabled = true;
+  }
+
+  function resetMap() {
+    var mapPins = document.querySelectorAll('.map__pin');
+    var priceInput = document.querySelector('#price');
+
+    form.reset();
+    filterForm.reset();
+    priceInput.placeholder = '1000';
+
+    pinMain.style = 'left: 570px; top: 375px';
+    pinMain.addEventListener('mouseup', onPinMainMouseup);
+    document.querySelector("#capacity").options[2].selected=true;
+
+    for (var i = 0; i < mapPins.length; i++) {
+      if (i > 0) {
+        mapPins[i].parentNode.removeChild(mapPins[i]);
+      }
+    }
+
+    blockMap();
+    window.cards.map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled')
   }
 
   function onPinMainMouseup() {
@@ -67,6 +91,8 @@
     for (i = 0; i < filterFieldsets.length; i++) {
       filterFieldsets[i].disabled = false;
     }
+
+    features.disabled = false;
 
     window.cards.map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
@@ -81,11 +107,6 @@
 
 
   function PinMainMouseupHandler(evt) {
-    var LEFT_LAST_COORD = '130';
-    var RIGHT_LAST_COORD = '630';
-    var TOP_LAST_COORD = '0';
-    var BOTTOM_LAST_COORD = '1138';
-
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY

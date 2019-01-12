@@ -1,8 +1,16 @@
 'use strict';
 
 (function () {
-  var MIN_PRICE = ['0', '1000', '5000', '10000'];
+  var MIN_PRICES = ['0', '1000', '5000', '10000'];
   var TYPE_OPTIONS = ['bungalo', 'flat', 'house', 'palace'];
+  var TIME_IN_OUT = ['12:00', '13:00', '14:00'];
+
+  var ROOMS_CAPACITIES_SYNC = {
+    '1': ['1'],
+    '2': ['1', '2'],
+    '3': ['1', '2', '3'],
+    '100': ['0']
+  };
 
   var typeSelect = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
@@ -14,25 +22,23 @@
 
     for (var i = 0; i < typeSelect.length; i++) {
       if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[0] + '"]').selected) {
-        priceInput.min = MIN_PRICE[0];
-        priceInput.placeholder = MIN_PRICE[0];
+        priceInput.min = MIN_PRICES[0];
+        priceInput.placeholder = MIN_PRICES[0];
       } else if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[1] + '"]').selected) {
-        priceInput.min = MIN_PRICE[1];
-        priceInput.placeholder = MIN_PRICE[1];
+        priceInput.min = MIN_PRICES[1];
+        priceInput.placeholder = MIN_PRICES[1];
       } else if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[2] + '"]').selected) {
-        priceInput.min = MIN_PRICE[2];
-        priceInput.placeholder = MIN_PRICE[2];
+        priceInput.min = MIN_PRICES[2];
+        priceInput.placeholder = MIN_PRICES[2];
       } else if (typeSelect.querySelector('[value="' + TYPE_OPTIONS[3] + '"]').selected) {
-        priceInput.min = MIN_PRICE[3];
-        priceInput.placeholder = MIN_PRICE[3];
+        priceInput.min = MIN_PRICES[3];
+        priceInput.placeholder = MIN_PRICES[3];
       }
     }
   }
 
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
-
-  var TIME_IN_OUT = ['12:00', '13:00', '14:00'];
 
   timeIn.addEventListener('change', synchronizeInTimes);
   timeOut.addEventListener('change', synchronizeOutTimes);
@@ -67,19 +73,12 @@
   var capacitySelect = document.querySelector('#capacity');
   var capacityOptions = capacitySelect.querySelectorAll('option');
 
-  var ROOM_CAPACITY_SYNC = {
-    '1': ['1'],
-    '2': ['1', '2'],
-    '3': ['1', '2', '3'],
-    '100': ['0']
-  };
-
   roomsSelect.addEventListener('change', synchronizeRooms);
   synchronizeRooms();
 
   function synchronizeRooms() {
     var roomsValue = roomsSelect.value;
-    var availableCapacities = ROOM_CAPACITY_SYNC[roomsValue];
+    var availableCapacities = ROOMS_CAPACITIES_SYNC[roomsValue];
     var currentActiveCapacity = capacitySelect.querySelector('option[selected]');
 
     for (var i = 0; i < capacityOptions.length; i++) {

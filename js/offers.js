@@ -16,7 +16,7 @@
   var coordYMax = 630;
 
   var offersTitles = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
-  var offersType = ['palace', 'flat', 'house', 'bungalo'];
+  var offersTypes = ['palace', 'flat', 'house', 'bungalo'];
   var offersCheckin = ['12:00', '13:00', '14:00'];
   var offersCheckout = ['12:00', '13:00', '14:00'];
   var offersFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -47,7 +47,7 @@
           'title': offersTitles.splice(getRandomFromRange(0, offersTitles.length - 1), 1),
           'address': coordX + ', ' + coordY,
           'price': getRandomFromRange(priceMin, priceMax),
-          'type': offersType[getRandomFromRange(0, offersType.length)],
+          'type': offersTypes[getRandomFromRange(0, offersTypes.length)],
           'rooms': getRandomFromRange(roomMin, roomMax),
           'guests': getRandomFromRange(guestsMin, guestsMax),
           'checkin': offersCheckin[getRandomFromRange(0, offersCheckin.length)],

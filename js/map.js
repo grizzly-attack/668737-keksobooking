@@ -68,7 +68,7 @@
 
     pinMain.style = 'left: 570px; top: 375px';
     pinMain.addEventListener('mouseup', onPinMainMouseup);
-    document.querySelector("#capacity").options[2].selected=true;
+    document.querySelector('#capacity').options[2].selected = true;
 
     for (var i = 0; i < mapPins.length; i++) {
       if (i > 0) {
@@ -78,7 +78,7 @@
 
     blockMap();
     window.cards.map.classList.add('map--faded');
-    form.classList.add('ad-form--disabled')
+    form.classList.add('ad-form--disabled');
   }
 
   function onPinMainMouseup() {

@@ -42,7 +42,7 @@
       pinImg.alt = offer.offer.title;
       pin.style = 'left: ' + offer.location.x + 'px; top: ' + offer.location.y + 'px';
 
-      pin.addEventListener('click', function (evt) {
+      pin.addEventListener('click', function () {
         removeCard();
         window.cards.generateCard(offer);
         pin.classList.add('map__pin--active');
@@ -89,7 +89,7 @@
       }
 
       var lastTimeout = window.setTimeout(function () {
-        setupFilter()
+        setupFilter();
       }, DEBOUNCE_INTERVAL);
 
       function setupFilter() {

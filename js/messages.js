@@ -9,7 +9,7 @@
     var successTpl = document.querySelector('#success').content.querySelector('.success');
     var success = successTpl.cloneNode(true);
 
-    function onSuccessrKeydown (evt) {
+    function onSuccessrKeydown(evt) {
       if (evt.keyCode === ESC_KEYCODE) {
         onSuccessClose();
       }
@@ -31,7 +31,7 @@
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
 
-    function onErrorKeydown (evt) {
+    function onErrorKeydown(evt) {
       if (evt.keyCode === ESC_KEYCODE) {
         onErrorClose();
       }

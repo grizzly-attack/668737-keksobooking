@@ -98,7 +98,7 @@
   function onClosePopupClick() {
     var popup = map.querySelector('.popup');
 
-    if(popup) {
+    if (popup) {
       popup.parentElement.removeChild(popup);
     }
   }

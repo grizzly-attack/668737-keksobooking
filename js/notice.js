@@ -18,10 +18,10 @@
   var typeSelect = document.querySelector('#type');
   var priceInput = document.querySelector('#price');
 
-  typeSelect.addEventListener('change', generteMinPrice);
-  generteMinPrice();
+  typeSelect.addEventListener('change', onHouseTypeChanged);
+  onHouseTypeChanged();
 
-  function generteMinPrice() {
+  function onHouseTypeChanged() {
     var typeValue = typeSelect.value;
     priceInput.min = TYPES_PRICES_SYNC[typeValue];
     priceInput.placeholder = TYPES_PRICES_SYNC[typeValue];
@@ -30,11 +30,11 @@
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
 
-  timeIn.addEventListener('change', synchronizeTimes);
-  timeOut.addEventListener('change', synchronizeTimes);
-  synchronizeTimes();
+  timeIn.addEventListener('change', onTimeChanged);
+  timeOut.addEventListener('change', onTimeChanged);
+  onTimeChanged();
 
-  function synchronizeTimes(evt) {
+  function onTimeChanged(evt) {
     if (evt && evt.target === timeIn) {
       timeOut.value = timeIn.value;
     } else {
@@ -46,10 +46,10 @@
   var capacitySelect = document.querySelector('#capacity');
   var capacityOptions = capacitySelect.querySelectorAll('option');
 
-  roomsSelect.addEventListener('change', synchronizeRooms);
-  synchronizeRooms();
+  roomsSelect.addEventListener('change', onRoomsChanged);
+  onRoomsChanged();
 
-  function synchronizeRooms() {
+  function onRoomsChanged() {
     var roomsValue = roomsSelect.value;
     var availableCapacities = ROOMS_CAPACITIES_SYNC[roomsValue];
     var currentActiveCapacity = capacitySelect.querySelector('option[selected]');

@@ -4,19 +4,25 @@
   var ESC_KEYCODE = 27;
   var container = document.querySelector('main');
 
+
   function createSuccessMessage() {
     var successTpl = document.querySelector('#success').content.querySelector('.success');
     var success = successTpl.cloneNode(true);
 
-    success.addEventListener('click', function () {
-      success.parentNode.removeChild(success);
-    });
-
-    document.addEventListener('keydown', function (evt) {
+    function onSuccessrKeydown (evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        success.parentNode.removeChild(success);
+        onSuccessClose();
       }
-    });
+    }
+
+    function onSuccessClose() {
+      success.parentNode.removeChild(success);
+      success.removeEventListener('click', onSuccessClose);
+      document.removeEventListener('keydown', onSuccessrKeydown);
+    }
+
+    success.addEventListener('click', onSuccessClose);
+    document.addEventListener('keydown', onSuccessrKeydown);
 
     container.appendChild(success);
   }
@@ -24,21 +30,21 @@
   function createSendErrorMessage() {
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
-    var button = error.querySelector('.error__button');
 
-    error.addEventListener('click', function () {
-      error.parentNode.removeChild(error);
-    });
-
-    button.addEventListener('click', function () {
-      error.parentNode.removeChild(error);
-    });
-
-    document.addEventListener('keydown', function (evt) {
+    function onErrorKeydown (evt) {
       if (evt.keyCode === ESC_KEYCODE) {
-        error.parentNode.removeChild(error);
+        onErrorClose();
       }
-    });
+    }
+
+    function onErrorClose() {
+      error.parentNode.removeChild(error);
+      error.removeEventListener('click', onErrorClose);
+      document.removeEventListener('keydown', onErrorKeydown);
+    }
+
+    error.addEventListener('click', onErrorClose);
+    document.addEventListener('keydown', onErrorKeydown);
 
     container.appendChild(error);
   }

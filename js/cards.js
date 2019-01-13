@@ -62,7 +62,7 @@
     function generatePhotos(imgs) {
       var fragment = document.createDocumentFragment();
       var photoPopup = card.querySelector('.popup__photos');
-      var imgTpl = card.querySelector('.popup__photos').querySelector('img');
+      var imgTpl = photoPopup.querySelector('img');
 
       if (imgs && imgs.length > 0) {
         for (var i = 0; i < imgs.length; i++) {
@@ -89,18 +89,23 @@
 
     var closePopup = card.querySelector('.popup__close');
 
-    closePopup.addEventListener('click', function () {
-      var popup = map.querySelector('.popup');
-      popup.parentElement.removeChild(popup);
-    });
+
+    closePopup.addEventListener('click', onClosePopupClick);
 
     map.insertBefore(card, filtersContainer);
   }
 
-  document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 27) {
-      var popup = map.querySelector('.popup');
+  function onClosePopupClick() {
+    var popup = map.querySelector('.popup');
+
+    if (popup) {
       popup.parentElement.removeChild(popup);
+    }
+  }
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === window.messages.ESC_KEYCODE) {
+      onClosePopupClick();
     }
   });
 
@@ -109,5 +114,4 @@
     map: map
   };
 
-  window.offers.newOffers = window.offers.generateOffers(window.offers.OFFERS_COUNT);
 })();

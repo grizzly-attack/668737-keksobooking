@@ -1,61 +1,74 @@
 'use strict';
 
 (function () {
+  var ESC_KEYCODE = 27;
+  var container = document.querySelector('main');
+
+
   function createSuccessMessage() {
-    var container = document.querySelector('main');
     var successTpl = document.querySelector('#success').content.querySelector('.success');
     var success = successTpl.cloneNode(true);
-    container.appendChild(success);
-    success.addEventListener('click', function () {
-      success.parentNode.removeChild(success);
-    });
 
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27) {
-        success.parentNode.removeChild(success);
+    function onSuccessrKeydown(evt) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        onSuccessClose();
       }
-    });
+    }
+
+    function onSuccessClose() {
+      success.parentNode.removeChild(success);
+      success.removeEventListener('click', onSuccessClose);
+      document.removeEventListener('keydown', onSuccessrKeydown);
+    }
+
+    success.addEventListener('click', onSuccessClose);
+    document.addEventListener('keydown', onSuccessrKeydown);
+
+    container.appendChild(success);
   }
 
   function createSendErrorMessage() {
-    var container = document.querySelector('main');
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
-    var button = error.querySelector('.error__button');
-    container.appendChild(error);
-    error.addEventListener('click', function () {
-      error.parentNode.removeChild(error);
-    });
 
-    button.addEventListener('click', function () {
-      error.parentNode.removeChild(error);
-    });
-
-    document.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === 27) {
-        error.parentNode.removeChild(error);
+    function onErrorKeydown(evt) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        onErrorClose();
       }
-    });
+    }
+
+    function onErrorClose() {
+      error.parentNode.removeChild(error);
+      error.removeEventListener('click', onErrorClose);
+      document.removeEventListener('keydown', onErrorKeydown);
+    }
+
+    error.addEventListener('click', onErrorClose);
+    document.addEventListener('keydown', onErrorKeydown);
+
+    container.appendChild(error);
   }
 
   function createGetErrorMessage() {
-    var container = document.querySelector('main');
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
     var button = error.querySelector('.error__button');
-    container.appendChild(error);
     var errorText = error.querySelector('.error__message');
+
     errorText.textContent = 'Произошла ошибка';
     button.textContent = 'OK';
 
     button.addEventListener('click', function () {
       document.location.reload(true);
     });
+
+    container.appendChild(error);
   }
 
   window.messages = {
     createSuccessMessage: createSuccessMessage,
     createSendErrorMessage: createSendErrorMessage,
-    createGetErrorMessage: createGetErrorMessage
+    createGetErrorMessage: createGetErrorMessage,
+    ESC_KEYCODE: ESC_KEYCODE
   };
 })();

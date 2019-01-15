@@ -5,6 +5,7 @@
 
   var userPhotoChooser = document.querySelector('.ad-form-header__upload input[type=file]');
   var housingPhotoChooser = document.querySelector('.ad-form__upload input[type=file]');
+  var imgContainer = document.querySelector('.ad-form__photo');
 
   function renderImg(preview, chooser) {
     var file = chooser.files[0];
@@ -31,9 +32,13 @@
   }
 
   function onHousingPhotoChooserChanged() {
-    var imgContainer = document.querySelector('.ad-form__photo');
     var img = document.createElement('img');
     img.width = PREVIEW_WIDTH;
+
+    while (imgContainer.firstChild) {
+      imgContainer.removeChild(imgContainer.firstChild);
+    }
+
     imgContainer.appendChild(img);
 
     renderImg(img, housingPhotoChooser);

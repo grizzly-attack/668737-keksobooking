@@ -5,7 +5,7 @@
   var container = document.querySelector('main');
 
 
-  function createSuccessMessage() {
+  function createSuccess() {
     var successTpl = document.querySelector('#success').content.querySelector('.success');
     var success = successTpl.cloneNode(true);
 
@@ -27,7 +27,7 @@
     container.appendChild(success);
   }
 
-  function createSendErrorMessage() {
+  function createSendError() {
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
 
@@ -49,7 +49,7 @@
     container.appendChild(error);
   }
 
-  function createGetErrorMessage() {
+  function createGetError() {
     var errorTpl = document.querySelector('#error').content.querySelector('.error');
     var error = errorTpl.cloneNode(true);
     var button = error.querySelector('.error__button');
@@ -66,9 +66,9 @@
   }
 
   window.messages = {
-    createSuccessMessage: createSuccessMessage,
-    createSendErrorMessage: createSendErrorMessage,
-    createGetErrorMessage: createGetErrorMessage,
+    createSuccess: createSuccess,
+    createSendError: createSendError,
+    createGetError: createGetError,
     ESC_KEYCODE: ESC_KEYCODE
   };
 })();

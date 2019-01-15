@@ -24,13 +24,13 @@
     }
   }
 
-  function onUserPhotoChooserChanged () {
+  function onUserPhotoChooserChanged() {
     var userPhoto = document.querySelector('.ad-form-header__preview img');
 
     renderImg(userPhoto, userPhotoChooser);
   }
 
-  function onHousingPhotoChooserChanged () {
+  function onHousingPhotoChooserChanged() {
     var imgContainer = document.querySelector('.ad-form__photo');
     var img = document.createElement('img');
     img.width = PREVIEW_WIDTH;

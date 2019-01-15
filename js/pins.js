@@ -110,7 +110,7 @@
               && (offer.offer.guests === parseInt(values.guests, 10) || values.guests === 'any')
               && checkFilterFeatures(offer.offer.features, values.features);
             });
-          }
+        }
 
         function checkFilterFeatures(offerFeatures, filterFeatures) {
           var isSuitable = true;

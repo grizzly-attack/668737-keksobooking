@@ -2,6 +2,7 @@
 
 (function () {
   var TIMEOUT = 10000;
+  var XHR_STATUS = 200;
 
   window.backend = {
     getData: getData,
@@ -14,7 +15,7 @@
 
     xhr.addEventListener('load', function () {
 
-      if (xhr.status === 200 && typeof onLoad === 'function') {
+      if (xhr.status === XHR_STATUS && typeof onLoad === 'function') {
         onLoad(xhr.response);
       } else {
         if (typeof onError === 'function') {

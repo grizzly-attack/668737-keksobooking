@@ -15,7 +15,7 @@
   var dataOffers = [];
   initFilterForm();
 
-  function createPins(offers) {
+  function create(offers) {
     dataOffers = offers;
     generatePins(offers);
   }
@@ -104,19 +104,11 @@
         function getFilteredOffers() {
           return dataOffers
             .filter(function (offer) {
-              return offer.offer.type === values.type || values.type === 'any';
-            })
-            .filter(function (offer) {
-              return checkFilterPrice(offer.offer.price, values.price);
-            })
-            .filter(function (offer) {
-              return offer.offer.rooms === parseInt(values.rooms, 10) || values.rooms === 'any';
-            })
-            .filter(function (offer) {
-              return offer.offer.guests === parseInt(values.guests, 10) || values.guests === 'any';
-            })
-            .filter(function (offer) {
-              return checkFilterFeatures(offer.offer.features, values.features);
+              return (offer.offer.type === values.type || values.type === 'any')
+              && checkFilterPrice(offer.offer.price, values.price)
+              && (offer.offer.rooms === parseInt(values.rooms, 10) || values.rooms === 'any')
+              && (offer.offer.guests === parseInt(values.guests, 10) || values.guests === 'any')
+              && checkFilterFeatures(offer.offer.features, values.features);
             });
         }
 
@@ -162,6 +154,6 @@
   }
 
   window.pins = {
-    createPins: createPins,
+    create: create,
   };
 })();

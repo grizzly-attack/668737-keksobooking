@@ -7,8 +7,8 @@
   var MAIN_PIN_LEFT = 570;
   var MAIN_PIN_TOP = 375;
 
-  var LEFT_LAST_COORD = 130;
-  var RIGHT_LAST_COORD = 630;
+  var LEFT_LAST_COORD = 130 - (PIN_HEIGHT + PIN_TAIL);
+  var RIGHT_LAST_COORD = 630 - (PIN_HEIGHT + PIN_TAIL);
   var TOP_LAST_COORD = 0;
   var BOTTOM_LAST_COORD = 1138;
 
@@ -25,9 +25,9 @@
     evt.preventDefault();
     window.backend.sendData(new FormData(form), function () {
       onMapReset(evt);
-      window.messages.createSuccessMessage();
+      window.messages.createSuccess();
 
-    }, window.messages.createSendErrorMessage);
+    }, window.messages.createSendError);
   });
 
   resetButton.addEventListener('click', onMapReset);
@@ -90,7 +90,7 @@
   }
 
   function onPinMainMouseup() {
-    window.backend.getData(window.pins.createPins, window.messages.createGetErrorMessage);
+    window.backend.getData(window.pins.create, window.messages.createGetError);
 
     for (var i = 0; i < formFieldsets.length; i++) {
       formFieldsets[i].disabled = false;
